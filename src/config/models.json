@@ -1,0 +1,170 @@
+{
+  "configs": {
+    "doubao": {
+      "maxConcurrent": 2,
+      "cooldownMs": 1000
+    },
+    "openai": {
+      "maxConcurrent": 2,
+      "cooldownMs": 1000
+    },
+    "cogview": {
+      "maxConcurrent": 2,
+      "cooldownMs": 1000
+    },
+    "tongyi": {
+      "maxConcurrent": 2,
+      "cooldownMs": 1000
+    },
+    "jimeng": {
+      "maxConcurrent": 2,
+      "cooldownMs": 1000
+    }
+  },
+  "models": [
+    {
+      "id": "doubao-seedream-3-0-t2i-250415",
+      "name": "豆包通用3.0",
+      "publishDate": "2025-04-15",
+      "description": "最新的通用文生图模型，支持高质量图像生成",
+      "category": "豆包",
+      "group": "doubao",
+      "demo": {
+        "prompt": "一只可爱的熊猫在竹林中玩耍，水彩风格",
+        "images": ["https://picsum.photos/seed/doubao-general-2.1/512/512"]
+      }
+    },
+    {
+      "id": "high_aes_general_v21_L",
+      "name": "豆包通用2.1",
+      "publishDate": "2024-11-11",
+      "description": "最新的通用文生图模型，支持高质量图像生成",
+      "category": "豆包",
+      "group": "doubao",
+      "demo": {
+        "prompt": "一只可爱的熊猫在竹林中玩耍，水彩风格",
+        "images": ["https://picsum.photos/seed/doubao-general-2.1/512/512"]
+      }
+    },
+    {
+      "id": "high_aes_general_v20_L",
+      "name": "豆包通用2.0Pro",
+      "publishDate": "2024-09-10",
+      "description": "高级通用文生图模型，支持更精细的控制",
+      "category": "豆包",
+      "group": "doubao",
+      "demo": {
+        "prompt": "一幅山水画，国画风格，云雾缭绕",
+        "images": ["https://picsum.photos/seed/doubao-general-2.0-pro/512/512"]
+      }
+    },
+    {
+      "id": "high_aes_general_v20",
+      "name": "豆包通用2.0",
+      "publishDate": "2024-08-19",
+      "description": "通用文生图模型，适合日常创作",
+      "category": "豆包",
+      "group": "doubao",
+      "demo": {
+        "prompt": "一片樱花林，水彩风格，柔和的粉色和白色",
+        "images": ["https://picsum.photos/seed/doubao-general-2.0/512/512"]
+      }
+    },
+    {
+      "id": "high_aes_general_v14",
+      "name": "豆包通用1.4",
+      "publishDate": "2024-06-13",
+      "description": "经典通用文生图模型，稳定性好",
+      "category": "豆包",
+      "group": "doubao",
+      "demo": {
+        "prompt": "一只可爱的猫咪，写实风格",
+        "images": ["https://picsum.photos/seed/doubao-general-1.4/512/512"]
+      }
+    },
+    {
+      "id": "t2i_xl_sft",
+      "name": "豆包通用XL Pro",
+      "publishDate": "2024-08-12",
+      "description": "超大模型，支持超高分辨率图像生成",
+      "category": "豆包",
+      "group": "doubao",
+      "demo": {
+        "prompt": "一幅宏伟的宫殿，写实风格",
+        "images": ["https://picsum.photos/seed/doubao-general-xl-pro/512/512"]
+      }
+    },
+    {
+      "id": "gpt_4o",
+      "name": "GPT-4o-Image",
+      "publishDate": "2025-03-25",
+      "description": "OpenAI 的最新模型，支持高质量图像生成",
+      "category": "OpenAI",
+      "group": "openai",
+      "demo": {
+        "prompt": "A whimsical illustration of a tea party in a garden",
+        "images": ["https://picsum.photos/seed/dalle1/512/512", "https://picsum.photos/seed/dalle2/512/512", "https://picsum.photos/seed/dalle3/512/512", "https://picsum.photos/seed/dalle4/512/512"]
+      }
+    },
+    {
+      "id": "cogView-4-250304",
+      "name": "CogView-4",
+      "publishDate": "2025-03-04",
+      "description": "智谱推出的首个支持生成汉字的开源文生图模型，专注于将文本描述转化为高质量图像",
+      "category": "智谱",
+      "group": "cogview",
+      "demo": {
+        "prompt": "A dreamy portrait of a mermaid in an underwater palace",
+        "images": ["https://picsum.photos/seed/mj1/512/512", "https://picsum.photos/seed/mj2/512/512", "https://picsum.photos/seed/mj3/512/512", "https://picsum.photos/seed/mj4/512/512"]
+      }
+    },
+    {
+      "id": "wanx2.0-t2i-turbo",
+      "name": "通义万相2.0-文生图-Turbo",
+      "publishDate": "2025-01-17",
+      "description": "通义万相 2.0-T2I-Turbo 是通义万相 2.0 的升级版本，支持更高分辨率、更高质量的图像生成",
+      "category": "通义万相",
+      "group": "tongyi",
+      "demo": {
+        "prompt": "A dreamy portrait of a mermaid in an underwater palace",
+        "images": ["https://picsum.photos/seed/mj1/512/512", "https://picsum.photos/seed/mj2/512/512", "https://picsum.photos/seed/mj3/512/512", "https://picsum.photos/seed/mj4/512/512"]
+      }
+    },
+    {
+      "id": "wanx2.1-t2i-turbo",
+      "name": "通义万相2.1-文生图-Turbo",
+      "publishDate": "2025-01-08",
+      "description": "通义万相 2.1-T2I-Turbo 是通义万相 2.1 的升级版本，支持更高分辨率、更高质量的图像生成",
+      "category": "通义万相",
+      "group": "tongyi",
+      "demo": {
+        "prompt": "A dreamy portrait of a mermaid in an underwater palace",
+        "images": ["https://picsum.photos/seed/mj1/512/512", "https://picsum.photos/seed/mj2/512/512", "https://picsum.photos/seed/mj3/512/512", "https://picsum.photos/seed/mj4/512/512"]
+      }
+    },
+    {
+      "id": "wanx2.1-t2i-plus",
+      "name": "通义万相2.1-文生图-Plus",
+      "publishDate": "2025-01-08",
+      "description": "通义万相 2.1-T2I-Plus 是通义万相 2.1 的升级版本，支持更高分辨率、更高质量的图像生成",
+      "category": "通义万相",
+      "group": "tongyi",
+      "demo": {
+        "prompt": "A dreamy portrait of a mermaid in an underwater palace",
+        "images": ["https://picsum.photos/seed/mj1/512/512", "https://picsum.photos/seed/mj2/512/512", "https://picsum.photos/seed/mj3/512/512", "https://picsum.photos/seed/mj4/512/512"]
+      }
+    },
+    {
+      "id": "jimeng_high_aes_general_v21_L",
+      "name": "即梦文生图2.1",
+      "publishDate": "2024-12-18",
+      "description": "字节跳动旗下的即梦AI 推出的图片模型2.1版本，声称能够通过简单的指令，用户只需一句话即可定制个性化的海报",
+      "category": "即梦",
+      "group": "jimeng",
+      "demo": {
+        "prompt": "A dreamy portrait of a mermaid in an underwater palace",
+        "images": ["https://picsum.photos/seed/mj1/512/512", "https://picsum.photos/seed/mj2/512/512", "https://picsum.photos/seed/mj3/512/512", "https://picsum.photos/seed/mj4/512/512"]
+      }
+    }
+  ]
+}

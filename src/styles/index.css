@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-scrollbar: rgba(142, 134, 218, 0.78);
+  }
+  .dark {
+    --color-scrollbar: rgba(102, 89, 224, 0.78);
+  }
+
+  html {
+    font-family: "Inter var", system-ui, sans-serif;
+  }
+
+  * {
+    @apply transition-all duration-100;
+  }
+
+  /* 全局滚动条样式 */
+  ::-webkit-scrollbar {
+    @apply w-1 h-1;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-scrollbar);
+    border-radius: 5px;
+  }
+}
+
+@layer components {}
+
+@layer utilities {}
