@@ -129,6 +129,7 @@ npm run lint
 1. 打包分割：rollupOptions 精细化 chunk
 1. 图片资源优化：缩略图、懒加载、渐进加载、预加载
 1. 代码精简：删除冗余代码，优化结构
+1. IndexedDB：使用浏览器 IndexedDB 优化查询性能
 
 ### 🎬 动画与主题
 

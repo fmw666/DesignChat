@@ -129,6 +129,7 @@ Click the button above and follow these steps to deploy:
 1. Bundle splitting: Fine-grained chunking with rollupOptions
 1. Image optimization: Thumbnails, lazy loading, progressive loading, preloading
 1. Code cleanup: Remove redundant code, optimize structure
+1. IndexedDB: Optimize query performance using the browser IndexedDB
 
 ### 🎬 Animation & Theme
 
