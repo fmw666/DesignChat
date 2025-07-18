@@ -85,7 +85,13 @@ cp .env.example .env
 npm run dev
 ```
 
-#### 6. lint 测试
+#### 6. jest 测试
+
+```bash
+npm run test
+```
+
+#### 7. lint 测试
 
 ```bash
 npm run lint
