@@ -2,16 +2,17 @@
  * @file EmptyState.tsx
  * @description Reusable empty state component for displaying when no data is available.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC } from 'react';
+// --- Core Libraries ---
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
+// --- Third-party Libraries ---
 import { motion } from 'framer-motion';
 
 // =================================================================================================

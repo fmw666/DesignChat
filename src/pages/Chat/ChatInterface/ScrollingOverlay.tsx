@@ -2,16 +2,17 @@
  * @file ScrollingOverlay.tsx
  * @description ScrollingOverlay component, displays a loading overlay when content is scrolling or loading.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
+// --- Core Libraries ---
 import { FC } from 'react';
 
-// 2. Third-party Libraries
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
 
 // =================================================================================================

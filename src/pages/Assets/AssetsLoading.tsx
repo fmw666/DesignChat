@@ -2,23 +2,18 @@
  * @file AssetsLoading.tsx
  * @description Loading spinner for asset grid/image loading in asset management UI.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
+// --- Core Libraries ---
 import { FC } from 'react';
 
-// 2. Third-party Libraries
+// --- Third-party Libraries ---
 import { ArrowPathIcon } from '@heroicons/react/24/solid';
-
-// =================================================================================================
-// Type Definitions
-// =================================================================================================
-
-// No props needed for this loading component
 
 // =================================================================================================
 // Constants

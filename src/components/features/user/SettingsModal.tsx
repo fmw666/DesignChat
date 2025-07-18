@@ -2,39 +2,41 @@
  * @file SettingsModal.tsx
  * @description Modal component for user settings including theme, language, and model configuration
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, useEffect, useState } from 'react';
+// --- Core Libraries ---
+import { useEffect, useState, useMemo, useCallback } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
-import { MoonIcon, GlobeAltIcon, SunIcon, InformationCircleIcon, Cog6ToothIcon, ServerIcon } from '@heroicons/react/24/outline';
+// --- Core-related Libraries ---
+import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+
+// --- Third-party Libraries ---
+import { MoonIcon, GlobeAltIcon, SunIcon, InformationCircleIcon, Cog6ToothIcon, ServerIcon } from '@heroicons/react/24/outline';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// 3. Internal Components
-import { Modal } from '@/components/shared/common/Modal';
-import ModelConfigModal from './ModelConfigModal';
-import ArchivedChatsModal from './ArchivedChatsModal';
+// --- Internal Libraries ---
+// --- Components ---
 import { ConfirmDialogOptimized as ConfirmDialog } from '@/components/shared/common/ConfirmDialog/ConfirmDialogOptimized';
-
-// 4. Internal Services
-import { authService } from '@/services/auth';
-
-// 5. Internal Stores
-import { useThemeStore } from '@/styles/theme';
-import { useAuthStore } from '@/store/authStore';
-
-// 6. Internal Hooks
+import { Modal } from '@/components/shared/common/Modal';
+// --- Hooks ---
 import { useChatSettings } from '@/hooks/chat';
-import { useMemo, useCallback } from 'react';
+// --- Services ---
+import { authService } from '@/services/auth';
+// --- Store ---
+import { useAuthStore } from '@/store/authStore';
+// --- Styles ---
+import { useThemeStore } from '@/styles/theme';
 
-// 7. Internal Utils
-import { toast } from 'react-hot-toast';
+// --- Relative Imports ---
+import ArchivedChatsModal from './ArchivedChatsModal';
+import ModelConfigModal from './ModelConfigModal';
 
 // =================================================================================================
 // Type Definitions

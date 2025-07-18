@@ -2,6 +2,7 @@
  * @file storageService.ts
  * @description StorageService singleton for Supabase S3 storage operations, including image upload and URL management.
  * @author fmw666@github
+ * @date 2025-07-17
  */
 
 // =================================================================================================
@@ -109,6 +110,13 @@ export class StorageService {
     file: File | Blob,
     fileName?: string,
   ): Promise<UploadResult> {
+    if (!supabase) {
+      return {
+        success: false,
+        error: 'Supabase client is not initialized',
+      };
+    }
+
     try {
       // 验证文件类型
       if (!this.validateFileType(file.type)) {
@@ -200,7 +208,11 @@ export class StorageService {
    * 获取文件的公共 URL
    */
   public async getPublicUrl(filePath: string): Promise<string> {
-    const { data } = await supabase.storage.from(this.config.bucketName).getPublicUrl(filePath);
+    if (!supabase) {
+      throw new Error('Supabase client is not initialized');
+    }
+
+    const { data } = supabase.storage.from(this.config.bucketName).getPublicUrl(filePath);
     return data.publicUrl;
   }
 
@@ -209,6 +221,10 @@ export class StorageService {
    */
   public async deleteFile(filePath: string): Promise<{ success: boolean; error?: string }> {
     try {
+      if (!supabase) {
+        throw new Error('Supabase client is not initialized');
+      }
+
       const { error } = await supabase.storage.from(this.config.bucketName).remove([filePath]);
       if (error) {
         throw error;

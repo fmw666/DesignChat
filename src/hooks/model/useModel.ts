@@ -2,14 +2,20 @@
  * @file useModel.ts
  * @description Hook for managing model configurations state and operations.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
+// --- Core Libraries ---
 import { useEffect } from 'react';
+
+// --- Internal Libraries ---
+// --- Hooks ---
 import { useAuth } from '@/hooks/auth';
+// --- Stores ---
 import { useModelStore } from '@/store/modelStore';
 
 // =================================================================================================
@@ -17,7 +23,7 @@ import { useModelStore } from '@/store/modelStore';
 // =================================================================================================
 
 export const useModel = () => {
-  const { user } = useAuth();
+  const { user, isInitialized: authIsInitialized } = useAuth();
   const {
     modelConfigs,
     availableModels,
@@ -42,10 +48,10 @@ export const useModel = () => {
   // --- Side Effects ---
   useEffect(() => {
     // 初始化：如果没有初始化过，则进行初始化
-    if (!isInitialized) {
+    if (authIsInitialized && !isInitialized) {
       initialize();
     }
-  }, [isInitialized, initialize]);
+  }, [authIsInitialized, isInitialized, initialize]);
 
   // --- Return Values ---
   return {

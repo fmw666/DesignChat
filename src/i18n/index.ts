@@ -1,6 +1,22 @@
-import i18n from 'i18next';
+/**
+ * @file index.ts
+ * @description i18n configuration
+ * @author fmw666@github
+ * @date 2025-07-18
+ */
+
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
 import { initReactI18next } from 'react-i18next';
+
+// --- Third-party Libraries ---
+import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+
+// --- Relative Imports ---
 import { en } from './locales/en';
 import { zh } from './locales/zh';
 

@@ -2,25 +2,23 @@
  * @file NotFound.tsx
  * @description NotFound component, displays a 404 error page with animated ghost and countdown redirect.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, useEffect, useState, useCallback } from 'react';
+// --- Core Libraries ---
+import { useEffect, useState, useCallback } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
-import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
+import { Link, useNavigate } from 'react-router-dom';
 
-// =================================================================================================
-// Type Definitions
-// =================================================================================================
-
-// No additional types needed for this component
+// --- Third-party Libraries ---
+import { motion } from 'framer-motion';
 
 // =================================================================================================
 // Constants
@@ -42,7 +40,7 @@ const ANIMATION_DELAYS = {
 };
 
 // =================================================================================================
-// Components
+// Component
 // =================================================================================================
 
 // Cute ghost SVG component with floating animation

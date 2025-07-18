@@ -2,6 +2,7 @@
  * @file chatService.ts
  * @description ChatService singleton for managing chat records, messages, and database operations.
  * @author fmw666@github
+ * @date 2025-07-17
  */
 
 // =================================================================================================
@@ -97,6 +98,8 @@ export class ChatService {
   /** 获取用户的所有聊天记录 */
   public async getUserChats(): Promise<Chat[]> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const currentUser = await authService.getCurrentUser();
       if (!currentUser) throw new Error('User not found');
 
@@ -120,6 +123,8 @@ export class ChatService {
   /** 创建新聊天 */
   public async createChat(title: string = '新对话', initialMessages: Message[] = []): Promise<Chat> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const currentUser = await authService.getCurrentUser();
       if (!currentUser) throw new Error('User not authenticated');
       const { data, error } = await supabase
@@ -138,6 +143,8 @@ export class ChatService {
   /** 更新聊天记录 */
   public async updateChat(chatId: string, updates: Partial<Chat>): Promise<Chat> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const { data, error } = await supabase
         .from(CHAT_TABLE_NAME)
         .update(updates)
@@ -155,6 +162,8 @@ export class ChatService {
   /** 添加消息到聊天 */
   public async addMessage(chat: Chat, message: Message): Promise<Chat> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const updatedMessages = [...(chat.messages || []), message];
       const title = chat.messages?.length === 0 ? message.content.slice(0, 30) : chat.title;
       const { data, error } = await supabase
@@ -171,10 +180,12 @@ export class ChatService {
     }
   }
 
-  /** 删除聊天 */
+  /** delete chat by chatId */
   public async deleteChat(chatId: string): Promise<void> {
     try {
-      // 1. 先删除相关的 assets 记录
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
+      // 1. delete related assets records
       const { error: assetsError } = await supabase
         .from('assets')
         .delete()
@@ -184,7 +195,7 @@ export class ChatService {
         console.error('Error deleting assets:', assetsError);
       }
 
-      // 2. 再删除 chat 记录
+      // 2. delete chat record
       const { error: chatError } = await supabase
         .from(CHAT_TABLE_NAME)
         .delete()
@@ -197,9 +208,11 @@ export class ChatService {
     }
   }
 
-  /** 获取单个聊天 */
+  /** get chat by chatId */
   public async getChat(chatId: string): Promise<Chat | null> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const { data, error } = await supabase
         .from(CHAT_TABLE_NAME)
         .select('*')
@@ -213,9 +226,11 @@ export class ChatService {
     }
   }
 
-  /** 取消归档聊天 */
+  /** unarchive chat by chatId */
   public async unarchiveChat(chatId: string): Promise<void> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const { error } = await supabase
         .from(CHAT_TABLE_NAME)
         .update({ archived: false })
@@ -227,9 +242,11 @@ export class ChatService {
     }
   }
 
-  /** 归档聊天 */
+  /** archive chat by chatId */
   public async archiveChat(chatId: string): Promise<void> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const { error } = await supabase
         .from(CHAT_TABLE_NAME)
         .update({ archived: true })
@@ -242,9 +259,11 @@ export class ChatService {
     }
   }
 
-  /** 批量归档所有聊天 */
+  /** archive all chats */
   public async archiveAllChats(): Promise<void> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const currentUser = await authService.getCurrentUser();
       if (!currentUser) throw new Error('User not authenticated');
       
@@ -261,13 +280,15 @@ export class ChatService {
     }
   }
 
-  /** 批量删除所有聊天 */
+  /** delete all chats */
   public async deleteAllChats(): Promise<void> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const currentUser = await authService.getCurrentUser();
       if (!currentUser) throw new Error('User not authenticated');
       
-      // 1. 先删除相关的 assets 记录（只删除未归档聊天的 assets）
+      // 1. delete related assets records (only delete assets of unarchived chats)
       const { data: chatsToDelete, error: chatsError } = await supabase
         .from(CHAT_TABLE_NAME)
         .select('id')
@@ -288,7 +309,7 @@ export class ChatService {
         }
       }
 
-      // 2. 再删除所有未归档的聊天记录
+      // 2. delete all unarchived chat records
       const { error: chatError } = await supabase
         .from(CHAT_TABLE_NAME)
         .delete()
@@ -302,9 +323,11 @@ export class ChatService {
     }
   }
 
-  /** 获取已归档的聊天 */
+  /** get archived chats */
   public async getArchivedChats(): Promise<Chat[]> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const currentUser = await authService.getCurrentUser();
       if (!currentUser) throw new Error('User not found');
       const { data, error } = await supabase
@@ -322,15 +345,13 @@ export class ChatService {
   }
 
   /**
-   * 切换图片收藏状态
-   * @param chatId 聊天ID
-   * @param messageId 消息ID
-   * @param imageId 图片ID
-   * @param isFavorite 是否收藏
+   * toggle image favorite status
    */
   public async toggleImageFavorite(chatId: string, messageId: string, imageId: string, isFavorite: boolean): Promise<Chat> {
     try {
-      // 获取当前 chat
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
+      // get current chat
       const { data: chat, error } = await supabase
         .from(CHAT_TABLE_NAME)
         .select('*')
@@ -338,11 +359,11 @@ export class ChatService {
         .single();
       if (error || !chat) throw error || new Error('Chat not found');
       
-      // 找到对应 message 并修改其 results
+      // find corresponding message and modify its results
       const messages = (chat.messages || []).map((msg: Message) => {
         if (msg.id !== messageId) return msg;
         
-        // 修改 message 下的 image results
+        // modify image results of the message
         const newResults: Results = {
           ...msg.results,
           images: Object.fromEntries(
@@ -358,17 +379,17 @@ export class ChatService {
         return { ...msg, results: newResults };
       });
       
-      // 找到修改后的 message 的 results
+      // find the modified message's results
       const updatedMessage = messages.find((msg: Message) => msg.id === messageId);
       if (!updatedMessage) throw new Error('Message not found');
       
-      // 只传入 results 到 assets 表
+      // only pass results to assets table
       const updatedAsset = await assetsService.updateAssetResults(chatId, messageId, updatedMessage.results);
       if (!updatedAsset) {
         console.warn(`Failed to update asset results for chat_id: ${chatId}, message_id: ${messageId}`);
       }
 
-      // 保存整个 messages 到 CHAT_TABLE_NAME
+      // save all messages to CHAT_TABLE_NAME
       const { data: updated, error: updateError } = await supabase
         .from(CHAT_TABLE_NAME)
         .update({ messages })
@@ -384,9 +405,11 @@ export class ChatService {
     }
   }
 
-  /** 批量取消归档所有聊天 */
+  /** unarchive all chats */
   public async unarchiveAllChats(): Promise<void> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const currentUser = await authService.getCurrentUser();
       if (!currentUser) throw new Error('User not authenticated');
       
@@ -403,13 +426,15 @@ export class ChatService {
     }
   }
 
-  /** 批量删除所有已归档聊天 */
+  /** delete all archived chats */
   public async deleteAllArchivedChats(): Promise<void> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const currentUser = await authService.getCurrentUser();
       if (!currentUser) throw new Error('User not authenticated');
       
-      // 1. 先删除相关的 assets 记录（只删除已归档聊天的 assets）
+      // 1. delete related assets records (only delete assets of archived chats)
       const { data: chatsToDelete, error: chatsError } = await supabase
         .from(CHAT_TABLE_NAME)
         .select('id')
@@ -430,7 +455,7 @@ export class ChatService {
         }
       }
 
-      // 2. 再删除所有已归档的聊天记录
+      // 2. delete all archived chat records
       const { error: chatError } = await supabase
         .from(CHAT_TABLE_NAME)
         .delete()

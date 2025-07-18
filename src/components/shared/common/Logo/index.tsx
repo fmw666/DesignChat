@@ -1,6 +1,25 @@
+/**
+ * @file Logo.tsx
+ * @description Logo component, provides a logo for the application.
+ * @author fmw666@github
+ * @date 2025-07-18
+ */
+
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
+import type { FC } from 'react';
+
+// --- Third-party Libraries ---
 import { motion } from 'framer-motion';
 
-export const Logo = () => {
+// =================================================================================================
+// Component
+// =================================================================================================
+
+export const Logo: FC = () => {
   return (
     <motion.div 
       initial={{ opacity: 0, y: -20 }}

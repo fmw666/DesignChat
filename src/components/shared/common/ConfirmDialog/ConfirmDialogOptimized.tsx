@@ -2,15 +2,33 @@
  * @file ConfirmDialogOptimized.tsx
  * @description Optimized ConfirmDialog component for better performance
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
-import { FC, useCallback, useMemo } from 'react';
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
+import { useCallback, useMemo } from 'react';
+import type { FC } from 'react';
+
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
+
+// --- Third-party Libraries ---
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+
+// --- Internal Libraries ---
+// --- Components ---
 import { Modal } from '@/components/shared/common/Modal';
+
+// --- Relative Imports ---
 import type { ConfirmDialogProps, ConfirmDialogType } from './types';
 
-// --- Constants ---
+// =================================================================================================
+// Constants
+// =================================================================================================
 
 const DEFAULT_CONFIRM_TEXT = '确认';
 const DEFAULT_CANCEL_TEXT = '取消';
@@ -30,7 +48,9 @@ const TYPE_STYLES: Record<ConfirmDialogType, { icon: string; button: string }> =
   },
 };
 
-// --- Component Definition ---
+// =================================================================================================
+// Component
+// =================================================================================================
 
 export const ConfirmDialogOptimized: FC<ConfirmDialogProps> = ({
   isOpen,
@@ -106,4 +126,4 @@ export const ConfirmDialogOptimized: FC<ConfirmDialogProps> = ({
       </div>
     </Modal>
   );
-}; 
+};

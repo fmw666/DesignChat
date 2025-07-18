@@ -2,19 +2,22 @@
  * @file modelStore.ts
  * @description Model store for managing user model configurations and filtering.
  * @author fmw666@github
+ * @date 2025-07-17
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Third-party Libraries
+// --- Third-party Libraries ---
 import { create } from 'zustand';
 
-// 2. Internal Services
+// --- Internal Libraries ---
+// --- Services ---
 import { modelManager, type ImageModel } from '@/services/model/modelManager';
 import { ModelConfigJson, modelConfigService, TestStatus, type ModelConfig } from '@/services/model/modelService';
 
+// --- Relative Imports ---
 import { useAuthStore } from './authStore';
 
 // =================================================================================================
@@ -27,18 +30,23 @@ export interface AvailableModel extends ImageModel {
 }
 
 export interface ModelState {
+  // --- State ---
   modelConfigs: ModelConfig[];
   availableModels: AvailableModel[];
   selectedCategory: string;
   selectedStatus: string;
   isLoading: boolean;
   isInitialized: boolean;
+
+  // --- State Setters ---
   setModelConfigs: (configs: ModelConfig[] | ((prev: ModelConfig[]) => ModelConfig[])) => void;
   setAvailableModels: (models: AvailableModel[]) => void;
   setSelectedCategory: (category: string) => void;
   setSelectedStatus: (status: string) => void;
   setIsLoading: (isLoading: boolean) => void;
   setIsInitialized: (isInitialized: boolean) => void;
+
+  // --- Operations ---
   initialize: () => Promise<void>;
   filterModels: () => void;
   getEnabledAndTestedModels: () => AvailableModel[];
@@ -92,8 +100,6 @@ export const useModelStore = create<ModelState>((set, get) => ({
 
   /**
    * Update a specific model config in the store (local only, no API call)
-   * @param modelId - Model ID of the config to update
-   * @param updatedConfig - Updated config data
    */
   updateModelConfig: (modelId: string, updatedConfig: ModelConfig) => {
     const { modelConfigs, filterModels } = get();
@@ -133,7 +139,6 @@ export const useModelStore = create<ModelState>((set, get) => ({
 
   /**
    * Add or update a model config in the store (local only, no API call)
-   * @param config - Config to add or update
    */
   addOrUpdateModelConfig: (config: ModelConfig) => {
     const { modelConfigs, setModelConfigs, filterModels } = get();
@@ -177,8 +182,6 @@ export const useModelStore = create<ModelState>((set, get) => ({
 
   /**
    * Toggle model enabled status (local only, no API call)
-   * @param modelId - Model ID to toggle
-   * @param enabled - New enabled status
    */
   toggleModelEnabled: async (modelId: string, enabled: boolean) => {
     const { user } = useAuthStore.getState();
@@ -227,8 +230,6 @@ export const useModelStore = create<ModelState>((set, get) => ({
 
   /**
    * Update model test status (local only, no API call)
-   * @param modelId - Model ID to update
-   * @param testStatus - New test status
    */
   updateModelTestStatus: (modelId: string, testStatus: TestStatus) => {
     const { user } = useAuthStore.getState();
@@ -268,6 +269,12 @@ export const useModelStore = create<ModelState>((set, get) => ({
   // --- Model Operations ---
   /**
    * Initialize model store and load user's model configurations
+   * 1. check if the store is already initialized or currently loading
+   * 2. check if the user is logged in
+   * 3. load all models
+   * 4. load user's model configurations
+   * 5. merge model information and configuration information
+   * 6. apply initial filtering
    */
   initialize: async () => {
     if (get().isLoading) return;

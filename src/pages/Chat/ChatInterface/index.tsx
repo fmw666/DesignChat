@@ -2,42 +2,46 @@
  * @file ChatInterface.tsx
  * @description ChatInterface component, responsible for the main chat UI, message handling, and user interaction.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { useState, useCallback, FC, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
+// --- Core Libraries ---
+import { useState, useCallback, useEffect } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
 
-// 3. Services and Utilities
-import { getAvatarText } from '@/utils/avatar';
+// --- Third-party Libraries ---
+import { AnimatePresence, motion } from 'framer-motion';
 
-// 4. Hooks
+// --- Internal Libraries ---
+// --- Components ---
+import { ArchivedChatInterface } from '@/components/features/chat/ArchivedChatInterface';
+import { ChatInput } from '@/components/features/chat/ChatInput';
+import { ChatMessage } from '@/components/features/chat/ChatMessage';
+import ChatTitle from '@/components/features/chat/ChatTitle';
+import { NewChatGuide } from '@/components/features/chat/NewChatGuide';
+import { SuccessToast } from '@/components/features/chat/SuccessToast';
+import { ImagePreview } from '@/components/shared/common/ImagePreview';
+// --- Hooks ---
 import { useAuth } from '@/hooks/auth';
 import { useChat, useChatInput, useChatScroll, useChatNavigation } from '@/hooks/chat';
 import { useImagePreview } from '@/hooks/ui';
+// --- Services ---
+import type { Message } from '@/services/chat';
+// --- Types ---
+import type { SelectedModel } from '@/types/chat';
+// --- Utils ---
+import { getAvatarText } from '@/utils/avatar';
 
-// 5. Components
-import ChatTitle from '@/components/features/chat/ChatTitle';
-import { NewChatGuide } from '@/components/features/chat/NewChatGuide';
-import { ChatMessage } from '@/components/features/chat/ChatMessage';
-import { ChatInput } from '@/components/features/chat/ChatInput';
-import { ArchivedChatInterface } from '@/components/features/chat/ArchivedChatInterface';
-import { SuccessToast } from '@/components/features/chat/SuccessToast';
+// --- Relative Imports ---
 import ChatLoading from './ChatLoading';
 import ScrollingOverlay from './ScrollingOverlay';
-import { ImagePreview } from '@/components/shared/common/ImagePreview';
-
-// 6. Types
-import type { Message } from '@/services/chat';
-import type { SelectedModel } from '@/types/chat';
 
 // =================================================================================================
 // Type Definitions
@@ -203,7 +207,7 @@ export const ChatInterface: FC<ChatInterfaceProps> = ({ chatId }) => {
 
   useEffect(() => {
     scrollMessagesToBottom();
-  }, [currentChat?.id]);
+  }, [currentChat?.id, scrollMessagesToBottom]);
 
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {

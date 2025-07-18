@@ -2,20 +2,23 @@
  * @file chatStore.ts
  * @description Chat store for managing chat conversations and messages.
  * @author fmw666@github
+ * @date 2025-07-17
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Third-party Libraries
+// --- Third-party Libraries ---
 import { create } from 'zustand';
 
-// 2. Internal Services
+// --- Internal Libraries ---
+// --- Services ---
 import { assetsService, type Asset } from '@/services/assets';
 import { authService } from '@/services/auth/authService';
 import { chatService } from '@/services/chat';
 import type { Chat, Message } from '@/services/chat';
+// --- Stores ---
 import { useAssetsStore } from '@/store/assetsStore';
 
 // =================================================================================================
@@ -23,16 +26,21 @@ import { useAssetsStore } from '@/store/assetsStore';
 // =================================================================================================
 
 export interface ChatState {
+  // --- State ---
   chats: Chat[];
   currentChat: Chat | null;
   isArchivedChat: boolean;
-  isLoading: boolean;
   isInitialized: boolean;
+  isLoading: boolean;
+
+  // --- State Setters ---
   setChats: (chats: Chat[] | ((prev: Chat[]) => Chat[])) => void;
   setCurrentChat: (currentChat: Chat | null) => void;
   setIsArchivedChat: (isArchivedChat: boolean) => void;
-  setIsLoading: (isLoading: boolean) => void;
   setIsInitialized: (isInitialized: boolean) => void;
+  setIsLoading: (isLoading: boolean) => void;
+
+  // --- Operations ---
   initialize: () => Promise<void>;
   createNewChat: (title?: string, initialMessages?: Message[]) => Promise<Chat | null>;
   addMessage: (message: Message) => Promise<void>;
@@ -56,7 +64,7 @@ export interface ChatState {
 // =================================================================================================
 
 const DEFAULT_CHATS: Chat[] = [];
-const DEFAULT_CURRENT_CHAT = null;
+const DEFAULT_CURRENT_CHAT: Chat | null = null;
 const DEFAULT_IS_INITIALIZED = false;
 const DEFAULT_IS_LOADING = false;
 const DEFAULT_CHAT_TITLE = '新对话';
@@ -79,15 +87,15 @@ export const useChatStore = create<ChatState>((set, get) => ({
   isInitialized: DEFAULT_IS_INITIALIZED,
 
   // --- State Setters ---
-  setChats: (chats) => set({ 
-    chats: typeof chats === 'function' ? chats(get().chats) : chats 
+  setChats: (chats) => set({
+    chats: typeof chats === 'function' ? chats(get().chats) : chats,
   }),
   setCurrentChat: (currentChat) => set({ currentChat }),
   setIsArchivedChat: (isArchivedChat) => set({ isArchivedChat }),
   setIsLoading: (isLoading) => set({ isLoading }),
   setIsInitialized: (isInitialized) => set({ isInitialized }),
 
-  // --- Chat Operations ---
+  // --- Operations ---
   /**
    * Initialize chat store and load user's chats
    */

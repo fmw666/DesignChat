@@ -2,21 +2,25 @@
  * @file ProtectedRoute.tsx
  * @description Route guard for authenticated pages, with animated loading and fallback UI.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, ReactNode } from 'react';
+// --- Core Libraries ---
+import type { FC, ReactNode } from 'react';
 
-// 2. Third-party Libraries
-import { motion } from 'framer-motion';
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router-dom';
 
-// 3. Internal Hooks
+// --- Third-party Libraries ---
+import { motion } from 'framer-motion';
+
+// --- Internal Libraries ---
+// --- Hooks ---
 import { useAuth } from '@/hooks/auth';
 
 // =================================================================================================

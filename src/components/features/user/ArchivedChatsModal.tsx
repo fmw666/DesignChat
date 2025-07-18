@@ -2,34 +2,35 @@
  * @file ArchivedChatsModal.tsx
  * @description Modal component for managing archived chats
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, useState, useEffect, useMemo, useCallback } from 'react';
+// --- Core Libraries ---
+import { useState, useEffect, useMemo, useCallback } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
+// --- Core-related Libraries ---
+import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'framer-motion';
+
+// --- Third-party Libraries ---
+import { ArchiveBoxIcon, TrashIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import { format, isToday, isYesterday, isThisYear } from 'date-fns';
 import { zhCN, enUS } from 'date-fns/locale';
-import { ArchiveBoxIcon, TrashIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
+import { motion, AnimatePresence } from 'framer-motion';
 
-// 3. Internal Components
-import { Modal } from '@/components/shared/common/Modal';
+// --- Internal Libraries ---
+// --- Components ---
 import { ConfirmDialogOptimized as ConfirmDialog } from '@/components/shared/common/ConfirmDialog/ConfirmDialogOptimized';
-
-// 4. Internal Services
-import { chatService, type Chat } from '@/services/chat';
-
-// 5. Internal Hooks
+import { Modal } from '@/components/shared/common/Modal';
+// --- Hooks ---
 import { useArchivedChats } from '@/hooks/chat';
-
-// 6. Internal Utils
-import { toast } from 'react-hot-toast';
+// --- Services ---
+import { chatService, type Chat } from '@/services/chat';
 
 // =================================================================================================
 // Type Definitions
@@ -196,7 +197,7 @@ export const ArchivedChatsModal: FC<ArchivedChatsModalProps> = ({ isOpen, onClos
     if (isOpen) {
       loadArchivedChats();
     }
-  }, [isOpen]);
+  }, [isOpen, loadArchivedChats]);
 
   // --- Render Logic ---
   return (

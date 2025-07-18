@@ -1,7 +1,27 @@
-import React, { useState } from 'react';
+/**
+ * @file SupabaseTest.tsx
+ * @description Supabase test page
+ * @author fmw666@github
+ * @date 2025-07-17
+ */
+
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
+import type { FC } from 'react';
+import { useState } from 'react';
+
+// --- Internal Libraries ---
+// --- Services ---
 import { supabase } from '@/services/api';
 
-const SupabaseTest: React.FC = () => {
+// =================================================================================================
+// Component
+// =================================================================================================
+
+const SupabaseTest: FC = () => {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState<string>('');
 
@@ -10,6 +30,12 @@ const SupabaseTest: React.FC = () => {
     setMessage('');
     try {
       // 尝试获取服务器时间，作为连接测试
+      if (!supabase) {
+        setStatus('error');
+        setMessage('Supabase client is not initialized');
+        return;
+      }
+
       const { data, error } = await supabase.rpc('get_server_time');
       if (error) {
         setStatus('error');
@@ -40,5 +66,9 @@ const SupabaseTest: React.FC = () => {
     </div>
   );
 };
+
+// =================================================================================================
+// Default Export
+// =================================================================================================
 
 export default SupabaseTest;

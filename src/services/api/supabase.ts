@@ -2,13 +2,14 @@
  * @file supabase.ts
  * @description Supabase client initialization and user/auth type definitions.
  * @author fmw666@github
+ * @date 2025-07-17
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
 // =================================================================================================
 // Environment Variables & Client
@@ -17,29 +18,16 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
+let supabase: SupabaseClient | null = null;
+
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables');
+  console.warn('Missing Supabase environment variables, Supabase client is not initialized.');
+} else {
+  supabase = createClient(supabaseUrl, supabaseAnonKey);
 }
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // =================================================================================================
-// Type Definitions
+// Export
 // =================================================================================================
 
-export interface User {
-  id: string;
-  email: string;
-  created_at: string;
-  last_sign_in_at: string | null;
-  user_metadata?: {
-    display_name?: string;
-    hide_model_info?: boolean;
-    [key: string]: any;
-  };
-}
-
-export interface AuthError {
-  message: string;
-  status?: number;
-}
+export { supabase };

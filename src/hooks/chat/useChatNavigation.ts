@@ -2,14 +2,25 @@
  * @file useChatNavigation.ts
  * @description Hook for managing chat navigation and routing logic
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
 import { useEffect } from 'react';
+
+// --- Core-related Libraries ---
 import { useNavigate } from 'react-router-dom';
+
+// --- Internal Libraries ---
+// --- Services ---
 import type { Chat } from '@/services/chat';
 
 // =================================================================================================
-// Types
+// Type Definitions
 // =================================================================================================
 
 interface UseChatNavigationProps {

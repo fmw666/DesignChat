@@ -2,16 +2,19 @@
  * @file ThemeProvider.tsx
  * @description ThemeProvider component, manages global theme and applies theme classes to the root element.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, useEffect, ReactNode } from 'react';
+// --- Core Libraries ---
+import { useEffect } from 'react';
+import type { FC, ReactNode } from 'react';
 
-// 2. Stores
+// --- Internal Libraries ---
+// --- Styles ---
 import { useThemeStore } from '@/styles/theme';
 
 // =================================================================================================

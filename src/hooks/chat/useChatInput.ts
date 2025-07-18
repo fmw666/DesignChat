@@ -2,21 +2,34 @@
  * @file useChatInput.ts
  * @description Hook for managing chat input state and message sending logic
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
 import { useRef, useCallback } from 'react';
+import type { ChangeEvent, FormEvent, KeyboardEvent } from 'react';
+
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
-import { FormEvent, KeyboardEvent } from 'react';
-import { eventBus, EVENT_NEED_SIGN_IN } from '@/utils/eventBus';
-import { Results } from '@/services/chat';
-import { modelManager, type ImageModel } from '@/services/model';
-import { modelApiManager } from '@/services/api';
+
+// --- Internal Libraries ---
+// --- Hooks ---
 import { useModel } from '@/hooks/model';
-import type { Chat, Message } from '@/services/chat';
-import type { SelectedModel, DesignImage } from '@/types/chat';
+// --- Services ---
+import { modelApiManager } from '@/services/api';
+import type { Chat, Message, Results } from '@/services/chat';
+import { modelManager, type ImageModel } from '@/services/model';
+// --- Types ---
+import type { DesignImage, SelectedModel } from '@/types/chat';
+// --- Utils ---
+import { eventBus, EVENT_NEED_SIGN_IN } from '@/utils/eventBus';
 
 // =================================================================================================
-// Types
+// Type Definitions
 // =================================================================================================
 
 interface StreamResponse {
@@ -83,7 +96,7 @@ export const useChatInput = ({
     let lastUpdateTime = Date.now();
 
     try {
-      while (true) {
+      for (;;) {
         try {
           const { done, value } = await reader.read();
           if (done) break;
@@ -157,7 +170,7 @@ export const useChatInput = ({
     } finally {
       reader.releaseLock();
     }
-  }, [t, onUpdateMessageResults, modelConfigs]);
+  }, [t, onUpdateMessageResults]);
 
   // =================================================================================================
   // Message Sending
@@ -394,7 +407,7 @@ export const useChatInput = ({
   const handleInputKeyDown = useCallback((e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.ctrlKey) {
       e.preventDefault();
-      handleSendMessage(e as any);
+      handleSendMessage(e as FormEvent);
     } else if (e.key === 'Enter' && e.ctrlKey) {
       e.preventDefault();
       const textarea = e.currentTarget;
@@ -411,7 +424,7 @@ export const useChatInput = ({
   // Textarea Auto-resize
   // =================================================================================================
 
-  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleInputChange = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     onSetInput(value);
     

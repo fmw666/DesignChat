@@ -2,26 +2,24 @@
  * @file App.tsx
  * @description Main application entry point with routing and providers setup.
  * @author fmw666@github
+ * @date 2025-07-17
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC } from 'react';
+// --- Core Libraries ---
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
+// --- Third-party Libraries ---
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-// 3. Internal Components
-import { AuthProvider } from '@/providers/AuthProvider';
-import { ThemeProvider } from '@/providers/ThemeProvider';
+// --- Internal Libraries ---
+// --- Components ---
 import ProtectedRoute from '@/components/features/auth/ProtectedRoute';
 import CustomToaster from '@/components/shared/common/CustomToaster';
-import ContextMenuProvider from '@/providers/ContextMenuProvider';
-
-// 4. Internal Pages
+// --- Pages ---
 import Assets from '@/pages/Assets';
 import Chat from '@/pages/Chat';
 import NotFound from '@/pages/NotFound';
@@ -29,12 +27,10 @@ import TestsIndex from '@/pages/Tests';
 import ChatTest from '@/pages/Tests/ChatTest';
 import StorageTest from '@/pages/Tests/StorageTest';
 import SupabaseTest from '@/pages/Tests/SupabaseTest';
-
-// =================================================================================================
-// Type Definitions
-// =================================================================================================
-
-// No additional types needed for this component
+// --- Providers ---
+import { AuthProvider } from '@/providers/AuthProvider';
+import ContextMenuProvider from '@/providers/ContextMenuProvider';
+import { ThemeProvider } from '@/providers/ThemeProvider';
 
 // =================================================================================================
 // Constants

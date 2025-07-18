@@ -2,6 +2,7 @@
  * @file assetsServices.ts
  * @description AssetsService for managing asset records and database operations, supporting pagination.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
@@ -107,6 +108,8 @@ export class AssetsService {
   /** 分页获取 assets 列表 */
   public async getAssetsList(page: number = 1, pageSize: number = 20): Promise<PaginatedAssets> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const from = (page - 1) * pageSize;
       const to = from + pageSize - 1;
       const { data, error, count } = await supabase
@@ -130,6 +133,8 @@ export class AssetsService {
   /** 创建新 asset */
   public async createAsset(asset: Omit<Asset, 'id' | 'created_at'>): Promise<Asset> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const { data, error } = await supabase
         .from(ASSETS_TABLE_NAME)
         .insert([asset])
@@ -146,6 +151,8 @@ export class AssetsService {
   /** 创建或更新 asset */
   public async createOrUpdateAsset(asset: Omit<Asset, 'id' | 'created_at'>): Promise<Asset> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       // 使用 upsert 操作，基于 chat_id 和 message_id 的唯一约束
       // 这样可以避免竞态条件，确保原子性操作
       const { data, error } = await supabase
@@ -168,6 +175,8 @@ export class AssetsService {
   /** 更新 asset 的 results */
   public async updateAssetResults(chatId: string, messageId: string, newResults: Results): Promise<Asset | null> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const { data, error } = await supabase
         .from(ASSETS_TABLE_NAME)
         .update({ results: newResults })

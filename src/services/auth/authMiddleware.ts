@@ -2,6 +2,7 @@
  * @file authMiddleware.ts
  * @description AuthMiddleware singleton for checking Supabase authentication and session validity.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
@@ -32,6 +33,8 @@ export class AuthMiddleware {
   // Auth Check Logic
   // --------------------------------------------------------------------------------
   public async checkAuth(): Promise<boolean> {
+    if (!supabase) return false;
+
     try {
       const { data: { session }, error } = await supabase.auth.getSession();
       

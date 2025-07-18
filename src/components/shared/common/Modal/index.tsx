@@ -3,21 +3,25 @@
  * @description A robust, accessible, and nested-ready Modal component using Headless UI and React Portals.
  * It solves common issues with nested modals like event propagation and scroll locking by using a global, reactive modal stack.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, Fragment, ReactNode, useEffect, useState, useRef, useSyncExternalStore } from 'react';
+// --- Core Libraries ---
+import { Fragment, ReactNode, useEffect, useState, useRef, useSyncExternalStore } from 'react';
+import type { FC } from 'react';
+
+// --- Core-related Libraries ---
 import { createPortal } from 'react-dom';
 
-// 2. Third-party Libraries
+// --- Third-party Libraries ---
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
-// 3. Internal Components & Stores
+// --- Relative Imports ---
 import { modalStackStore } from './modalStack';
 
 // =================================================================================================
@@ -94,9 +98,10 @@ export const Modal: FC<ModalProps> = ({
   // It pushes its ID when it opens and cleans up by popping its ID when it closes or unmounts.
   useEffect(() => {
     if (isOpen) {
-      modalStackStore.push(modalId.current);
+      const id = modalId.current;
+      modalStackStore.push(id);
       return () => {
-        modalStackStore.pop(modalId.current);
+        modalStackStore.pop(id);
       };
     }
   }, [isOpen]);

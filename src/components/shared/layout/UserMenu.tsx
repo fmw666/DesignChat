@@ -2,35 +2,37 @@
  * @file UserMenu.tsx
  * @description 用户菜单组件，提供下拉菜单用于用户操作和个人信息管理。
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, Fragment, useState, useCallback } from 'react';
+// --- Core Libraries ---
+import { Fragment, useState, useCallback, useRef } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
-import { Menu, Transition } from '@headlessui/react';
-import { UserCircleIcon } from '@heroicons/react/24/outline';
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
 
-// 3. Internal Components
+// --- Third-party Libraries ---
+import { Menu, Transition } from '@headlessui/react';
+import { UserCircleIcon } from '@heroicons/react/24/outline';
+
+// --- Internal Libraries ---
+// --- Components ---
 import { SettingsModal } from '@/components/features/user/SettingsModal';
 import { UserProfileModal } from '@/components/features/user/UserProfileModal';
-import { 
-  useMenuItems, 
-  MenuItemComponent, 
-  MenuDivider 
-} from './UserMenuItems';
-
-// 4. Internal Hooks
+// --- Hooks ---
 import { useAuth } from '@/hooks/auth';
-
-// 5. Internal Utilities
+import { useMenuItems } from '@/hooks/ui/useMenuItems';
+// --- Utils ---
 import { getAvatarClasses, getAvatarSizeClasses, getAvatarText } from '@/utils/avatar';
 import { EVENT_NEED_SIGN_IN, eventBus } from '@/utils/eventBus';
+
+// --- Relative Imports ---
+import { MenuItemComponent, MenuDivider } from './UserMenuItems';
 
 // =================================================================================================
 // Type Definitions
@@ -48,6 +50,7 @@ const UserMenu: FC<UserMenuProps> = ({ isCollapsed }) => {
   // --- State and Refs ---
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const closeRef = useRef<() => void>(() => {});
 
   // --- Hooks ---
   const { t } = useTranslation();
@@ -78,6 +81,8 @@ const UserMenu: FC<UserMenuProps> = ({ isCollapsed }) => {
     eventBus.emit(EVENT_NEED_SIGN_IN);
   }, []);
 
+  const menuItems = useMenuItems(handleProfileClick, handleSettingsClick, handleSignOut, () => closeRef.current());
+
   // --- Render Logic ---
   if (!user) {
     return (
@@ -97,7 +102,7 @@ const UserMenu: FC<UserMenuProps> = ({ isCollapsed }) => {
     <>
       <Menu as="div" className="relative">
         {({ open, close }) => {
-          const menuItems = useMenuItems(handleProfileClick, handleSettingsClick, handleSignOut, close);
+          closeRef.current = close;
 
           return (
             <>

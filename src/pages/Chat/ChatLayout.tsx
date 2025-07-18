@@ -2,16 +2,18 @@
  * @file ChatLayout.tsx
  * @description ChatLayout component, provides the layout wrapper for chat pages.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
+// --- Core Libraries ---
 import { FC, ReactNode } from 'react';
 
-// 2. Internal Components
+// --- Internal Libraries ---
+// --- Components ---
 import BaseLayout from '@/components/shared/layout/BaseLayout';
 
 // =================================================================================================

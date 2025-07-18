@@ -1,7 +1,8 @@
 /**
  * @file index.ts
  * @description Unified export for all services
- * @author fmw666
+ * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // API

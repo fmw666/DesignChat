@@ -2,13 +2,18 @@
  * @file useAuth.ts
  * @description Hook for managing authentication state and operations.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
+// --- Core Libraries ---
 import { useEffect } from 'react';
+
+// --- Internal Libraries ---
+// --- Stores ---
 import { useAuthStore } from '@/store/authStore';
 
 // =================================================================================================

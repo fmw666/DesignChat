@@ -2,44 +2,52 @@
  * @file authStore.ts
  * @description Authentication store for managing user authentication state and operations.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Third-party Libraries
+// --- Third-party Libraries ---
 import { create } from 'zustand';
 
-// 2. Internal Services
-import type { User } from '@/services/api';
+// --- Internal Libraries ---
+// --- Services ---
 import { authService } from '@/services/auth/authService';
+// --- Types ---
+import type { User } from '@/types/auth';
 
 // =================================================================================================
 // Type Definitions
 // =================================================================================================
 
 export interface AuthState {
-  user: User | null;
-  setUser: (user: User | null) => void;
+  // --- State ---
   isInitialized: boolean;
+  isLoading: boolean;
+  user: User | null;
+
+  // --- State Setters ---
   setIsInitialized: (isInitialized: boolean) => void;
+  setIsLoading: (isLoading: boolean) => void;
+  setUser: (user: User | null) => void;
+
+  // --- Operations ---
   initialize: () => Promise<void>;
   signOut: () => Promise<void>;
   sendVerificationCode: (email: string) => Promise<void>;
   verifyCode: (email: string, code: string) => Promise<void>;
   updateDisplayName: (displayName: string) => Promise<void>;
-  isLoading: boolean;
-  setIsLoading: (isLoading: boolean) => void;
 }
 
 // =================================================================================================
 // Constants
 // =================================================================================================
 
-const DEFAULT_USER = null;
 const DEFAULT_IS_INITIALIZED = false;
 const DEFAULT_IS_LOADING = false;
+const DEFAULT_USER = null;
 
 // =================================================================================================
 // Store Configuration
@@ -51,21 +59,23 @@ const DEFAULT_IS_LOADING = false;
  */
 export const useAuthStore = create<AuthState>((set, get) => ({
   // --- Initial State ---
-  user: DEFAULT_USER,
   isInitialized: DEFAULT_IS_INITIALIZED,
   isLoading: DEFAULT_IS_LOADING,
+  user: DEFAULT_USER,
 
   // --- State Setters ---
-  setUser: (user: User | null) => set({ user }),
   setIsInitialized: (isInitialized: boolean) => set({ isInitialized }),
   setIsLoading: (isLoading: boolean) => set({ isLoading }),
+  setUser: (user: User | null) => set({ user }),
 
   // --- Authentication Operations ---
   /**
    * Initialize authentication state and set up auth state listener
+   * 1. check if already initialized or loading.
+   * 2. load user info and set up auth state change listener.
+   * 3. handle errors and ensure state consistency.
    */
   initialize: async () => {
-    // Return early if already initialized or currently loading
     if (get().isInitialized || get().isLoading) return;
 
     try {
@@ -83,7 +93,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         isInitialized: true
       }));
     } catch (error) {
-      console.error('Error initializing auth:', error);
+      console.error('[AuthStore] Error initializing auth:', error);
       set(state => ({
         ...state,
         user: null,
@@ -91,7 +101,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         isInitialized: true
       }));
     }
-    
+
     // Set up authentication state change listener
     authService.onAuthStateChange((_event, session) => {
       if (session) {
@@ -125,41 +135,37 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       // Clear user state
       setUser(null);
     } catch (error) {
-      console.error('Error signing out:', error);
+      console.error('[AuthStore] Error signing out:', error);
       throw error;
     }
   },
 
   /**
    * Send verification code to user's email
-   * @param email - User's email address
    */
   sendVerificationCode: async (email: string) => {
     try {
       await authService.sendEmailVerification(email);
     } catch (error) {
-      console.error('Error sending verification code:', error);
+      console.error('[AuthStore] Error sending verification code:', error);
       throw error;
     }
   },
 
   /**
    * Verify email verification code
-   * @param email - User's email address
-   * @param code - Verification code
    */
   verifyCode: async (email: string, code: string) => {
     try {
       await authService.verifyEmailCode(email, code);
     } catch (error) {
-      console.error('Error verifying code:', error);
+      console.error('[AuthStore] Error verifying code:', error);
       throw error;
     }
   },
 
   /**
    * Update user's display name
-   * @param displayName - New display name
    */
   updateDisplayName: async (displayName: string) => {
     const { setUser } = get();
@@ -169,7 +175,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       });
       setUser(updatedUser);
     } catch (error) {
-      console.error('Error updating display name:', error);
+      console.error('[AuthStore] Error updating display name:', error);
       throw error;
     }
   },

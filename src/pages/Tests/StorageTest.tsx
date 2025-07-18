@@ -1,13 +1,27 @@
 /**
  * @file StorageTestPage.tsx
  * @description Storage 测试页面
- * @author AI Assistant
+ * @author fmw666@github
+ * @date 2025-07-17
  */
 
-import React from 'react';
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
+import type { FC } from 'react';
+
+// --- Internal Libraries ---
+// --- Components ---
 import StorageTestComponent from '@/components/tests/storage/StorageTestComponent';
 
-const StorageTest: React.FC = () => {
+// =================================================================================================
+// Component
+// =================================================================================================
+
+const StorageTest: FC = () => {
+  // --- Render ---
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto py-8">
@@ -16,5 +30,9 @@ const StorageTest: React.FC = () => {
     </div>
   );
 };
+
+// =================================================================================================
+// Default Export
+// =================================================================================================
 
 export default StorageTest;

@@ -2,21 +2,26 @@
  * @file ImageViewer.tsx
  * @description ImageViewer component, provides a full-screen image viewer with zoom and pan functionality.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, useState, useRef, useCallback, useEffect, useSyncExternalStore, useId } from 'react';
+// --- Core Libraries ---
+import { useState, useRef, useCallback, useEffect, useSyncExternalStore, useId } from 'react';
+import type { FC } from 'react';
+
+// --- Core-related Libraries ---
 import { createPortal } from 'react-dom';
 
-// 2. Third-party Libraries
+// --- Third-party Libraries ---
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
 
-// 3. Internal Utils
+// --- Internal Libraries ---
+// --- Components ---
 import { modalStackStore } from '@/components/shared/common/Modal/modalStack';
 
 // =================================================================================================

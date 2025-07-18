@@ -2,15 +2,27 @@
  * @file DoubaoTest.tsx
  * @description 豆包文生图模型测试组件，支持模型选择、提示词输入、图片生成与缓存。
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
-// --- Imports ---
-import React, { useState, useEffect, useCallback } from 'react';
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
+import { useState, useEffect, useCallback } from 'react';
+import type { FC } from 'react';
+
+// --- Third-party Libraries ---
 import { SparklesIcon, PhotoIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
+
+// --- Internal Libraries ---
+// --- Services ---
 import type { DoubaoModel } from '@/services/model';
 
-
-// --- Type Definitions ---
+// =================================================================================================
+// Type Definitions
+// =================================================================================================
 
 interface CachedContent {
   prompt: string;
@@ -26,7 +38,10 @@ interface DoubaoResult {
   images?: string[];
 }
 
-// --- Constants ---
+// =================================================================================================
+// Constants
+// =================================================================================================
+
 const MODEL_NAMES: Record<DoubaoModel, string> = {
   'doubao-seedream-3-0-t2i-250415': '豆包3.0-文生图',
   high_aes_general_v21_L: '通用2.1-文生图',
@@ -46,8 +61,11 @@ const DEMO_PROMPTS: string[] = [
 const CACHE_KEY = 'doubao_test_cache';
 const CACHE_EXPIRY = 24 * 60 * 60 * 1000; // 24小时
 
-// --- Component Definition ---
-const DoubaoTest: React.FC = () => {
+// =================================================================================================
+// Component
+// =================================================================================================
+
+const DoubaoTest: FC = () => {
   // --- State and Refs ---
   const [prompt, setPrompt] = useState<string>('');
   const [selectedModel, setSelectedModel] = useState<DoubaoModel>('high_aes_general_v21_L');
@@ -70,7 +88,7 @@ const DoubaoTest: React.FC = () => {
     setIsLoading(true);
     setResult(null);
     try {
-      let response: any = 'todo';
+      const response: any = 'todo';
       // const response = await doubaoService.generateImage({ prompt, model: selectedModel });
       if (response?.imageUrl) {
         const imageUrl = response.imageUrl;
@@ -240,5 +258,8 @@ const DoubaoTest: React.FC = () => {
   );
 };
 
-// --- Default Export ---
+// =================================================================================================
+// Default Export
+// =================================================================================================
+
 export default DoubaoTest;

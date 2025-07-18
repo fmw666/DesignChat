@@ -2,13 +2,22 @@
  * @file useChatScroll.ts
  * @description Hook for managing chat scrolling behavior
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
 import { useRef, useCallback, useEffect } from 'react';
+
+// --- Internal Libraries ---
+// --- Services ---
 import type { Chat } from '@/services/chat';
 
 // =================================================================================================
-// Hook
+// Hook Definition
 // =================================================================================================
 
 interface UseChatScrollOptions {
@@ -25,24 +34,30 @@ export const useChatScroll = (
 ) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const loadingTimeoutRef = useRef<NodeJS.Timeout>();
+  const optionsRef = useRef(options);
+  
+  // 更新 optionsRef
+  useEffect(() => {
+    optionsRef.current = options;
+  });
 
   const scrollMessagesToBottom = useCallback(
     (showLoading: boolean = true) => {
       if (!currentChat?.messages.length) {
-        options?.setIsScrolling?.(false);
-        options?.setHasLoadingTimedOut?.(false);
+        optionsRef.current?.setIsScrolling?.(false);
+        optionsRef.current?.setHasLoadingTimedOut?.(false);
         return;
       }
 
-      options?.setIsScrolling?.(true);
-      options?.setIsShowLoading?.(showLoading);
-      options?.setHasLoadingTimedOut?.(false);
+      optionsRef.current?.setIsScrolling?.(true);
+      optionsRef.current?.setIsShowLoading?.(showLoading);
+      optionsRef.current?.setHasLoadingTimedOut?.(false);
 
       if (loadingTimeoutRef.current) {
         clearTimeout(loadingTimeoutRef.current);
       }
-      if (options?.setHasLoadingTimedOut) {
-        loadingTimeoutRef.current = setTimeout(() => options.setHasLoadingTimedOut?.(true), SCROLL_TIMEOUT);
+      if (optionsRef.current?.setHasLoadingTimedOut) {
+        loadingTimeoutRef.current = setTimeout(() => optionsRef.current?.setHasLoadingTimedOut?.(true), SCROLL_TIMEOUT);
       }
 
       // 获取所有图片，包括成功、错误和生成中的
@@ -55,8 +70,8 @@ export const useChatScroll = (
       const hasAnyImages = allImages.length > 0;
 
       const finishScroll = () => {
-        options?.setIsScrolling?.(false);
-        options?.setHasLoadingTimedOut?.(false);
+        optionsRef.current?.setIsScrolling?.(false);
+        optionsRef.current?.setHasLoadingTimedOut?.(false);
         if (loadingTimeoutRef.current) clearTimeout(loadingTimeoutRef.current);
       };
 
@@ -68,18 +83,28 @@ export const useChatScroll = (
         return;
       }
 
+      // 设置图片获取超时时间（如 5 秒）
+      const IMAGE_LOAD_TIMEOUT = 5000;
+
       if (successImages.length > 0) {
-        Promise.all(
-          successImages.map(img => {
-            if (!img.url) return Promise.resolve();
-            return new Promise((resolve) => {
-              const image = new Image();
-              image.onload = resolve;
-              image.onerror = resolve;
-              image.src = img.url as string;
-            });
-          })
-        ).then(() => {
+        // Promise.race 超时处理
+        const imageLoadPromises = successImages.map(img => {
+          if (!img.url) return Promise.resolve();
+          return new Promise((resolve) => {
+            const image = new window.Image();
+            image.onload = resolve;
+            image.onerror = resolve;
+            image.src = img.url as string;
+          });
+        });
+
+        // 超时 Promise
+        const timeoutPromise = new Promise(resolve => setTimeout(resolve, IMAGE_LOAD_TIMEOUT));
+
+        Promise.race([
+          Promise.all(imageLoadPromises),
+          timeoutPromise
+        ]).then(() => {
           setTimeout(() => {
             messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
             setTimeout(finishScroll, 500);
@@ -92,7 +117,7 @@ export const useChatScroll = (
         }, 100);
       }
     },
-    [currentChat, options]
+    [currentChat]
   );
 
   // Cleanup timeout on unmount

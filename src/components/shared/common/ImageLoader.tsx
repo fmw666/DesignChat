@@ -2,18 +2,22 @@
  * @file ImageLoader.tsx
  * @description Image loading component with loading state and error handling.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, useState, useEffect } from 'react';
+// --- Core Libraries ---
+import { useState, useEffect } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
-import { motion } from 'framer-motion';
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
+
+// --- Third-party Libraries ---
+import { motion } from 'framer-motion';
 
 // =================================================================================================
 // Type Definitions

@@ -2,14 +2,15 @@
  * @file avatar.ts
  * @description Avatar utility functions for user avatar display and styling.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Internal Types
-import { User } from '@/services/api';
+// --- Internal Types ---
+import { type User } from '@/types/auth';
 
 // =================================================================================================
 // Type Definitions

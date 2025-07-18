@@ -2,14 +2,20 @@
  * @file useAssets.ts
  * @description Hook for managing assets state and operations.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
+// --- Core Libraries ---
 import { useEffect } from 'react';
+
+// --- Internal Libraries ---
+// --- Hooks ---
 import { useAuth } from '@/hooks/auth';
+// --- Stores ---
 import { useAssetsStore } from '@/store/assetsStore';
 
 // =================================================================================================

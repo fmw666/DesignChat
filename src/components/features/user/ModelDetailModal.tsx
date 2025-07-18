@@ -2,19 +2,21 @@
  * @file ModelDetailModal.tsx
  * @description Modal component for displaying detailed information about AI models
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
+// --- Core Libraries ---
 import { FC } from 'react';
 
-// 2. Third-party Libraries
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
 
-// 3. Internal Components
+// --- Internal Libraries ---
+// --- Components ---
 import { Modal } from '@/components/shared/common/Modal';
 
 // =================================================================================================

@@ -2,13 +2,18 @@
  * @file ChatTest.tsx
  * @description ChatTest page, renders the AI service test layout.
  * @author fmw666@github
+ * @date 2025-07-17
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-import { FC } from 'react';
+// --- Core Libraries ---
+import type { FC } from 'react';
+
+// --- Internal Libraries ---
+// --- Components ---
 import TestLayout from '@/components/tests/chat/TestLayout';
 
 // =================================================================================================
@@ -16,9 +21,7 @@ import TestLayout from '@/components/tests/chat/TestLayout';
 // =================================================================================================
 
 const ChatTest: FC = () => {
-  // --------------------------------------------------------------------------------
-  // Render
-  // --------------------------------------------------------------------------------
+  // --- Render ---
   return <TestLayout />;
 };
 

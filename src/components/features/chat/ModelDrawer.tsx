@@ -2,27 +2,30 @@
  * @file ModelDrawer.tsx
  * @description Component that provides a dropdown interface for selecting and managing image generation models
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, useState, useEffect, useRef, useCallback, useMemo } from 'react';
+// --- Core Libraries ---
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
-import { MagnifyingGlassIcon, XMarkIcon, PlusIcon } from '@heroicons/react/24/outline';
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
+
+// --- Third-party Libraries ---
+import { MagnifyingGlassIcon, XMarkIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { AnimatePresence, motion } from 'framer-motion';
 
-// 3. Internal Services
-import { type ImageModel } from '@/services/model/modelManager';
-
-// 4. Internal Hooks
+// --- Internal Libraries ---
+// --- Hooks ---
 import { useModel } from '@/hooks/model';
-
-// 5. Internal Utils
+// --- Services ---
+import { type ImageModel } from '@/services/model/modelManager';
+// --- Utils ---
 import { getDefaultSelectedModels } from '@/utils/modelUtils';
 
 // =================================================================================================
@@ -369,7 +372,7 @@ export const ModelDrawer: FC<ModelDrawerProps> = ({
                   <p className="text-sm text-gray-500 dark:text-gray-400">
                     {searchQuery ? (
                       <>
-                        没有找到与 "<span className="text-gray-700 dark:text-gray-300 font-medium">{searchQuery}</span>" 相关的模型
+                        没有找到与 &quot;<span className="text-gray-700 dark:text-gray-300 font-medium">{searchQuery}</span>&quot; 相关的模型
                       </>
                     ) : enabledModels.length === 0 ? (
                       <>

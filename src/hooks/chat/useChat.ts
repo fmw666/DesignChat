@@ -2,14 +2,20 @@
  * @file useChat.ts
  * @description Hook for managing chat state and operations.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
+// --- Core Libraries ---
 import { useEffect } from 'react';
+
+// --- Internal Libraries ---
+// --- Hooks ---
 import { useAuth } from '@/hooks/auth';
+// --- Stores ---
 import { useChatStore } from '@/store/chatStore';
 
 // =================================================================================================

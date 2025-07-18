@@ -2,14 +2,27 @@
  * @file Gpt4oTest.tsx
  * @description GPT-4o 文生图测试组件，支持提示词输入、流式文本与图片生成、缓存。
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
-// --- Imports ---
-import React, { useState, useEffect, useCallback } from 'react';
-import { SparklesIcon, PhotoIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
+import { useState, useEffect, useCallback } from 'react';
+import type { FC } from 'react';
+
+// --- Core-related Libraries ---
 import ReactMarkdown from 'react-markdown';
 
-// --- Type Definitions ---
+// --- Third-party Libraries ---
+import { SparklesIcon, PhotoIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
+
+// =================================================================================================
+// Type Definitions
+// =================================================================================================
+
 interface CachedContent {
   prompt: string;
   text: string;
@@ -24,7 +37,10 @@ interface Gpt4oResult {
   images?: string[];
 }
 
-// --- Constants ---
+// =================================================================================================
+// Constants
+// =================================================================================================
+
 const DEMO_PROMPTS: string[] = [
   '一只可爱的熊猫在竹林中玩耍，水彩风格',
   '一片樱花林，水彩风格，柔和的粉色和白色',
@@ -35,8 +51,11 @@ const DEMO_PROMPTS: string[] = [
 const CACHE_KEY = 'gpt4o_test_cache';
 const CACHE_EXPIRY = 24 * 60 * 60 * 1000; // 24小时
 
-// --- Component Definition ---
-const Gpt4oTest: React.FC = () => {
+// =================================================================================================
+// Component
+// =================================================================================================
+
+const Gpt4oTest: FC = () => {
   // --- State and Refs ---
   const [prompt, setPrompt] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -57,10 +76,10 @@ const Gpt4oTest: React.FC = () => {
     if (!prompt.trim()) return;
     setIsLoading(true);
     setResult(null);
-    let currentText = '';
-    let currentImages: string[] = [];
+    const currentText = '';
+    const currentImages: string[] = [];
     try {
-      let response: any = 'todo';
+      const response: any = 'todo';
       // const response = await gpt4oService.generateImage({
       //   prompt,
       //   model: 'gpt-4o-image',
@@ -207,7 +226,7 @@ const Gpt4oTest: React.FC = () => {
             <div className="mt-4 prose prose-sm max-w-none">
               <ReactMarkdown
                 components={{
-                  a: ({ node, ...props }) => (
+                  a: ({ ...props }) => (
                     <a
                       {...props}
                       target="_blank"
@@ -239,5 +258,8 @@ const Gpt4oTest: React.FC = () => {
   );
 };
 
-// --- Default Export ---
+// =================================================================================================
+// Default Export
+// =================================================================================================
+
 export default Gpt4oTest;

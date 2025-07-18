@@ -2,34 +2,29 @@
  * @file AuthProvider.tsx
  * @description AuthProvider component, provides authentication context and login modal.
  * @author fmw666@github
+ * @date 2025-07-17
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { createContext, useEffect, useState, FC, ReactNode, useCallback } from 'react';
+// --- Core Libraries ---
+import { useEffect, useState, useCallback } from 'react';
+import type { FC, ReactNode } from 'react';
 
-// 2. Components
+// --- Internal Libraries ---
+// --- Components ---
 import { SignInModal } from '@/components/features/auth/SignInModal';
-
-// 3. Hooks
+// --- Hooks ---
 import { useAuth } from '@/hooks/auth';
-
-// 4. Services and Utilities
-import { User } from '@/services/api';
-
+import { AuthContext } from '@/hooks/ui';
+// --- Utils ---
 import { eventBus, EVENT_NEED_SIGN_IN } from '@/utils/eventBus';
-
 
 // =================================================================================================
 // Type Definitions
 // =================================================================================================
-
-interface AuthContextType {
-  user: User | null;
-}
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -38,8 +33,6 @@ interface AuthProviderProps {
 // =================================================================================================
 // Component
 // =================================================================================================
-
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   // --------------------------------------------------------------------------------

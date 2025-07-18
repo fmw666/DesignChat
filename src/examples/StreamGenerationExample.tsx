@@ -2,9 +2,18 @@
  * @file StreamGenerationExample.tsx
  * @description 流式批量图片生成使用示例
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
 import { useState, useCallback } from 'react';
+
+// --- Internal Libraries ---
+// --- Services ---
 import { modelApiManager } from '@/services/api';
 import type { DoubaoModel, StandardResponse } from '@/services/model';
 

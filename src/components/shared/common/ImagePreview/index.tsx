@@ -2,32 +2,36 @@
  * @file ImagePreview.tsx
  * @description ImagePreview component, provides a modal interface for viewing and interacting with images.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, useState, useRef, useEffect, useMemo, useCallback } from 'react';
+// --- Core Libraries ---
+import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
-import { motion, AnimatePresence } from 'framer-motion';
+// --- Core-related Libraries ---
+import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+
+// --- Third-party Libraries ---
 import { XMarkIcon, DocumentDuplicateIcon, PencilSquareIcon, ChatBubbleLeftEllipsisIcon } from '@heroicons/react/24/outline';
 import { StarIcon, ArrowPathIcon, ArrowDownTrayIcon } from '@heroicons/react/24/solid';
-import toast from 'react-hot-toast';
+import { motion, AnimatePresence } from 'framer-motion';
 
-// 3. Internal Components
-import { Modal } from '@/components/shared/common/Modal';
+// --- Internal Libraries ---
+// --- Components ---
 import { ImageViewer } from '@/components/shared/common/ImageViewer';
-
-// 4. Internal Utils
-import { copyToClipboard } from '@/utils/clipboard';
-
-// 5. Types
-import type { Message } from '@/services/chat';
+import { Modal } from '@/components/shared/common/Modal';
+// --- Hooks ---
 import { useChat } from '@/hooks/chat';
+// --- Services ---
+import type { Message } from '@/services/chat';
+// --- Utils ---
+import { copyToClipboard } from '@/utils/clipboard';
 
 // =================================================================================================
 // Type Definitions
@@ -123,7 +127,7 @@ export const ImagePreview: FC<ImagePreviewProps> = ({
       })
     }
     return arr;
-  }, [message]);
+  }, [message, isReference]);
 
   const [currentIndex, setCurrentIndex] = useState(() => {
     if (!initialImageId) return 0;

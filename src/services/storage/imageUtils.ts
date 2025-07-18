@@ -2,6 +2,7 @@
  * @file imageUtils.ts
  * @description Image utility functions for processing, optimizing, and managing images
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================

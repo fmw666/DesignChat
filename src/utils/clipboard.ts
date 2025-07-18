@@ -2,22 +2,32 @@
  * @file clipboard.ts
  * @description Utility functions for clipboard operations
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
-// --- Type Definitions ---
+// =================================================================================================
+// Type Definitions
+// =================================================================================================
+
 export interface CopyToClipboardResult {
   success: boolean;
   error?: string;
 }
 
-// --- Constants ---
+// =================================================================================================
+// Constants
+// =================================================================================================
+
 const FALLBACK_TEXTAREA_STYLES = {
   position: 'fixed',
   left: '-999999px',
   top: '-999999px'
 } as const;
 
-// --- Utility Functions ---
+// =================================================================================================
+// Utility Functions
+// =================================================================================================
+
 /**
  * Copies text to clipboard using modern API with fallback to traditional method
  * @param text - The text to copy to clipboard

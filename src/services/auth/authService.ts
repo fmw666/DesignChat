@@ -2,15 +2,17 @@
  * @file authService.ts
  * @description AuthService singleton for Supabase authentication, user session, and metadata management.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-import { AuthChangeEvent, Session } from '@supabase/supabase-js';
+import { supabase } from '@/services/api/supabase';
+import type { User, AuthError } from '@/types/auth';
 
-import { supabase, type AuthError, type User } from '@/services/api/supabase';
+import type { AuthChangeEvent, Session } from '@supabase/supabase-js';
 
 // =================================================================================================
 // Class Definition
@@ -38,6 +40,8 @@ export class AuthService {
 
   /** 获取当前 session 的用户信息 */
   public async getSession(): Promise<User | null> {
+    if (!supabase) return null;
+
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) return null;
     return {
@@ -56,6 +60,8 @@ export class AuthService {
 
   /** 获取当前用户（异步方法） */
   public async getCurrentUser(): Promise<User | null> {
+    if (!supabase) return null;
+
     try {
       const { data: { user }, error } = await supabase.auth.getUser();
       if (!user || error) {
@@ -82,11 +88,15 @@ export class AuthService {
 
   /** 监听 session 变化 */
   public onAuthStateChange(callback: (event: AuthChangeEvent, session: Session | null) => void): void {
+    if (!supabase) return;
+
     supabase.auth.onAuthStateChange(callback);
   }
 
   /** 更新用户元数据 */
   public async updateUserMetadata(metadata: { [key: string]: any }): Promise<User> {
+    if (!supabase) throw new Error('Supabase client is not initialized');
+
     const { data: { user }, error } = await supabase.auth.updateUser({ data: metadata });
     if (error) throw error;
     if (!user) throw new Error('User not found');
@@ -105,6 +115,8 @@ export class AuthService {
 
   /** 发送邮箱验证码 */
   public async sendEmailVerification(email: string): Promise<void> {
+    if (!supabase) throw new Error('Supabase client is not initialized');
+
     try {
       const { error } = await supabase.auth.signInWithOtp({ email });
       if (error) throw error;
@@ -116,6 +128,8 @@ export class AuthService {
 
   /** 验证邮箱验证码 */
   public async verifyEmailCode(email: string, code: string): Promise<User> {
+    if (!supabase) throw new Error('Supabase client is not initialized');
+
     try {
       const { data, error } = await supabase.auth.verifyOtp({
         email,
@@ -140,6 +154,8 @@ export class AuthService {
 
   /** 登出 */
   public async signOut(): Promise<void> {
+    if (!supabase) return;
+
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;

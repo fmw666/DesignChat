@@ -2,6 +2,7 @@
  * @file modelService.ts
  * @description ModelService for managing model configuration records and database operations.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
@@ -108,6 +109,8 @@ export class ModelConfigService {
   /** 获取用户的所有模型配置 */
   public async getAllModelConfigs(userId: string): Promise<ModelConfig[]> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const { data, error } = await supabase
         .from(MODEL_CONFIGS_TABLE_NAME)
         .select('*')
@@ -126,6 +129,8 @@ export class ModelConfigService {
   /** 创建或更新模型配置 */
   public async createOrUpdateModelConfig(config: CreateModelConfig): Promise<ModelConfig> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       // 使用 upsert 操作，基于 user_id 和 model_id 的唯一约束
       const { data, error } = await supabase
         .from(MODEL_CONFIGS_TABLE_NAME)
@@ -152,6 +157,8 @@ export class ModelConfigService {
     updates: UpdateModelConfig
   ): Promise<ModelConfig | null> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const { data, error } = await supabase
         .from(MODEL_CONFIGS_TABLE_NAME)
         .update(updates)
@@ -182,6 +189,8 @@ export class ModelConfigService {
     testStatus: TestStatus
   ): Promise<ModelConfig | null> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const updates: UpdateModelConfig = {
         test_status: testStatus,
         last_tested_at: testStatus !== TestStatus.NOT_TESTED ? new Date().toISOString() : null
@@ -217,6 +226,8 @@ export class ModelConfigService {
     configJson: ModelConfigJson
   ): Promise<ModelConfig | null> {
     try {
+      if (!supabase) throw new Error('Supabase client is not initialized');
+
       const { data, error } = await supabase
         .from(MODEL_CONFIGS_TABLE_NAME)
         .update({ config_json: configJson })
@@ -255,6 +266,8 @@ export class ModelConfigService {
 
   /** 创建默认模型配置 */
   public async createDefaultModelConfigs(userId: string): Promise<ModelConfig[]> {
+    if (!supabase) throw new Error('Supabase client is not initialized');
+
     const defaultConfigs: CreateModelConfig[] = [
       {
         user_id: userId,

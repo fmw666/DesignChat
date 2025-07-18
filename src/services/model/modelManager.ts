@@ -2,6 +2,7 @@
  * @file modelService.ts
  * @description ModelService singleton for managing image generation models and their configuration.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================

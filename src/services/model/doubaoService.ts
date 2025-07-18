@@ -1,3 +1,10 @@
+/**
+ * @file doubaoService.ts
+ * @description DoubaoService for generating images with Doubao AI
+ * @author fmw666@github
+ * @date 2025-07-18
+ */
+
 /*
 豆包AI绘图服务
 

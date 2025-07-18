@@ -2,15 +2,25 @@
  * @file useImagePreview.ts
  * @description Hook for managing image preview state and operations
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
 import { useState, useCallback } from 'react';
+
+// --- Internal Libraries ---
+// --- Services ---
 import type { Asset } from '@/services/assets';
 import type { Chat, Message } from '@/services/chat';
+// --- Types ---
 import type { SelectedImage, DesignImage } from '@/types/chat';
 
 // =================================================================================================
-// Types
+// Type Definitions
 // =================================================================================================
 
 interface UseImagePreviewProps {
@@ -19,9 +29,8 @@ interface UseImagePreviewProps {
   }
 
 // =================================================================================================
-// Hook
+// Hook Definition
 // =================================================================================================
-
 
 export const useImagePreview = ({ currentChat, user }: UseImagePreviewProps) => {
   const [designImage, setDesignImage] = useState<DesignImage | null>(null);

@@ -2,18 +2,33 @@
  * @file NewChatGuide.tsx
  * @description Component that displays a welcome guide for new chat users with interactive examples
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
-import { FC, useCallback } from 'react';
-import { motion, AnimatePresence, Variants } from 'framer-motion';
-import { SparklesIcon, LightBulbIcon } from '@heroicons/react/24/outline';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-hot-toast';
+// =================================================================================================
+// Imports
+// =================================================================================================
 
-// --- Internal Imports ---
+// --- Core Libraries ---
+import { useCallback } from 'react';
+import type { FC } from 'react';
+
+// --- Core-related Libraries ---
+import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+
+// --- Third-party Libraries ---
+import { SparklesIcon, LightBulbIcon } from '@heroicons/react/24/outline';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
+
+// --- Internal Libraries ---
+// --- Utils ---
 import { copyToClipboard } from '@/utils/clipboard';
 
-// --- Constants ---
+// =================================================================================================
+// Constants
+// =================================================================================================
+
 const ANIMATION_DELAY = 0.2;
 const STAGGER_DELAY = 0.1;
 const SPRING_STIFFNESS = 100;

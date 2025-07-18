@@ -2,34 +2,21 @@
  * @file ContextMenuProvider.tsx
  * @description Global context menu provider that manages menu state
  * @author fmw666@github
+ * @date 2025-07-17
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-import { type FC, createContext, useContext, useState, type ReactNode } from 'react';
+// --- Core Libraries ---
+import { type FC, useState, type ReactNode } from 'react';
 
+// --- Internal Libraries ---
+// --- Components ---
 import ContextMenu, { MenuItem } from '@/components/shared/common/ContextMenu';
-
-// =================================================================================================
-// Type Definitions
-// =================================================================================================
-
-interface ContextMenuContextType {
-  openMenu: (items: MenuItem[], position: { x: number; y: number }, anchor?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right') => void;
-  closeMenu: () => void;
-  isOpen: boolean;
-  items: MenuItem[];
-  position: { x: number; y: number };
-  anchor: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
-}
-
-// =================================================================================================
-// Context
-// =================================================================================================
-
-const ContextMenuContext = createContext<ContextMenuContextType | undefined>(undefined);
+// --- Hooks ---
+import { ContextMenuContext } from '@/hooks/ui/useContextMenu';
 
 // =================================================================================================
 // Provider Component
@@ -81,18 +68,6 @@ export const ContextMenuProvider: FC<ContextMenuProviderProps> = ({ children }) 
       />
     </ContextMenuContext.Provider>
   );
-};
-
-// =================================================================================================
-// Hook
-// =================================================================================================
-
-export const useContextMenu = (): ContextMenuContextType => {
-  const context = useContext(ContextMenuContext);
-  if (context === undefined) {
-    throw new Error('useContextMenu must be used within a ContextMenuProvider');
-  }
-  return context;
 };
 
 // =================================================================================================

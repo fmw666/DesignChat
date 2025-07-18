@@ -2,14 +2,24 @@
  * @file useChatSettings.ts
  * @description Hook for managing chat settings state and operations
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
 import { useCallback } from 'react';
+
+// --- Internal Libraries ---
+// --- Hooks ---
 import { useAuth } from '@/hooks/auth';
+// --- Stores ---
 import { useChatStore } from '@/store/chatStore';
 
 // =================================================================================================
-// Hook
+// Hook Definition
 // =================================================================================================
 
 export const useChatSettings = () => {
@@ -24,7 +34,7 @@ export const useChatSettings = () => {
       console.error('Error archiving all chats:', error);
       throw error;
     }
-  }, [user?.id]);
+  }, [user?.id, archiveAllChats]);
 
   const handleDeleteAllChats = useCallback(async () => {
     if (!user?.id) return;
@@ -34,7 +44,7 @@ export const useChatSettings = () => {
       console.error('Error deleting all chats:', error);
       throw error;
     }
-  }, [user?.id]);
+  }, [user?.id, deleteAllChats]);
 
   return {
     handleArchiveAllChats,

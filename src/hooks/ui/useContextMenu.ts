@@ -1,6 +1,6 @@
 /**
- * @file AssetsLayout.tsx
- * @description AssetsLayout component, provides the layout wrapper for assets pages.
+ * @file useContextMenu.ts
+ * @description Hook for accessing the ContextMenu context. Must be used within a ContextMenuProvider.
  * @author fmw666@github
  * @date 2025-07-18
  */
@@ -10,35 +10,38 @@
 // =================================================================================================
 
 // --- Core Libraries ---
-import { FC, ReactNode } from 'react';
+import { createContext, useContext } from 'react';
 
 // --- Internal Libraries ---
 // --- Components ---
-import BaseLayout from '@/components/shared/layout/BaseLayout';
+import { MenuItem } from '@/components/shared/common/ContextMenu';
 
 // =================================================================================================
 // Type Definitions
 // =================================================================================================
 
-interface AssetsLayoutProps {
-  children: ReactNode;
+interface ContextMenuContextType {
+  openMenu: (items: MenuItem[], position: { x: number; y: number }, anchor?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right') => void;
+  closeMenu: () => void;
+  isOpen: boolean;
+  items: MenuItem[];
+  position: { x: number; y: number };
+  anchor: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 }
 
 // =================================================================================================
-// Component
+// Context
 // =================================================================================================
 
-const AssetsLayout: FC<AssetsLayoutProps> = ({ children }) => {
-  // --- Render Logic ---
-  return (
-    <BaseLayout type="assets">
-      {children}
-    </BaseLayout>
-  );
+export const ContextMenuContext = createContext<ContextMenuContextType | undefined>(undefined);
+
+// =================================================================================================
+// Hooks
+// =================================================================================================
+export const useContextMenu = (): ContextMenuContextType => {
+  const context = useContext(ContextMenuContext);
+  if (context === undefined) {
+    throw new Error('useContextMenu must be used within a ContextMenuProvider');
+  }
+  return context;
 };
-
-// =================================================================================================
-// Default Export
-// =================================================================================================
-
-export default AssetsLayout; 

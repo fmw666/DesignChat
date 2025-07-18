@@ -2,13 +2,14 @@
  * @file theme.ts
  * @description Theme store for managing application theme state (light/dark mode).
  * @author fmw666@github
+ * @date 2025-07-17
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Third-party Libraries
+// --- Third-party Libraries ---
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 

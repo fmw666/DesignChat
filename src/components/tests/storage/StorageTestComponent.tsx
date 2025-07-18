@@ -2,10 +2,24 @@
  * @file StorageTestComponent.tsx
  * @description Storage 功能测试组件，用于在浏览器中测试文件上传
  * @author AI Assistant
+ * @date 2025-07-18
  */
 
-import React, { useState, useRef } from 'react';
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
+import { useState, useRef } from 'react';
+import type { FC } from 'react';
+
+// --- Internal Libraries ---
+// --- Services ---
 import { storageService } from '@/services/storage';
+
+// =================================================================================================
+// Type Definitions
+// =================================================================================================
 
 interface TestResult {
   type: 'success' | 'error' | 'info';
@@ -14,7 +28,11 @@ interface TestResult {
   timestamp: Date;
 }
 
-export const StorageTestComponent: React.FC = () => {
+// =================================================================================================
+// Component
+// =================================================================================================
+
+export const StorageTestComponent: FC = () => {
   const [results, setResults] = useState<TestResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -191,4 +209,4 @@ export const StorageTestComponent: React.FC = () => {
   );
 };
 
-export default StorageTestComponent; 
+export default StorageTestComponent;

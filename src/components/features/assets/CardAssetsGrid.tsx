@@ -2,24 +2,28 @@
  * @file CardAssetsGrid.tsx
  * @description Card assets grid component for displaying assets in card layout.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, useCallback } from 'react';
+// --- Core Libraries ---
+import type { FC } from 'react';
+import { useCallback } from 'react';
 
-// 2. Third-party Libraries
-import { motion, AnimatePresence } from 'framer-motion';
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
+
+// --- Third-party Libraries ---
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
+import { motion, AnimatePresence } from 'framer-motion';
 
-// 3. Internal Components
+// --- Internal Libraries ---
+// --- Components ---
 import ImageLoader from '@/components/shared/common/ImageLoader';
-
-// 4. Internal Types
+// --- Services ---
 import type { Asset } from '@/services/assets';
 
 // =================================================================================================

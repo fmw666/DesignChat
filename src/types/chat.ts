@@ -2,6 +2,7 @@
  * @file chat.ts
  * @description Shared types for chat functionality
  * @author fmw666@github
+ * @date 2025-07-17
  */
 
 // =================================================================================================
@@ -28,4 +29,4 @@ export interface SelectedImage {
   messageId: string | null;
   resultId: string | null;
   isReference: boolean;
-} 
+}

@@ -2,28 +2,52 @@
  * @file Sidebar.tsx
  * @description 响应式侧边栏，支持聊天与资产分类切换，集成新建按钮与 Logo。
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
-// --- Imports ---
-import { FC, useCallback } from 'react';
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
+import { useCallback } from 'react';
+import type { FC } from 'react';
+
+// --- Core-related Libraries ---
+import { useNavigate } from 'react-router-dom';
+
+// --- Third-party Libraries ---
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { Logo } from '@/components/shared/common/Logo';
-import ChatHistory from '@/components/features/chat/ChatHistory';
+
+// --- Internal Libraries ---
+// --- Components ---
 import AssetsCategory from '@/components/features/assets/AssetsCategory';
+import ChatHistory from '@/components/features/chat/ChatHistory';
+import { Logo } from '@/components/shared/common/Logo';
+// --- Hooks ---
 import { useAuth } from '@/hooks/auth';
+// --- Utils ---
 import { eventBus, EVENT_NEED_SIGN_IN } from '@/utils/eventBus';
 
-// --- Type Definitions ---
+// =================================================================================================
+// Type Definitions
+// =================================================================================================
+
 interface SidebarProps {
   type?: 'chat' | 'assets';
 }
 
-// --- Constants ---
+// =================================================================================================
+// Constants
+// =================================================================================================
+
 const NEW_CHAT_ROUTE = '/chat/new';
 
-// --- Component Definition ---
+// =================================================================================================
+// Component
+// =================================================================================================
+
 const Sidebar: FC<SidebarProps> = ({ type = 'chat' }) => {
   // --- Hooks ---
   const navigate = useNavigate();
@@ -63,5 +87,8 @@ const Sidebar: FC<SidebarProps> = ({ type = 'chat' }) => {
   );
 };
 
-// --- Default Export ---
+// =================================================================================================
+// Default Export
+// =================================================================================================
+
 export default Sidebar; 

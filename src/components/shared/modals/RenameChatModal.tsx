@@ -2,23 +2,25 @@
  * @file RenameChatModal.tsx
  * @description Modal component for renaming chat conversations.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, useState, useEffect, useRef } from 'react';
+// --- Core Libraries ---
+import { useState, useEffect, useRef } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
 
-// 3. Internal Types
-import type { Chat } from '@/services/chat';
-
-// 4. Internal Components
+// --- Internal Libraries ---
+// --- Components ---
 import { Modal } from '@/components/shared/common/Modal';
+// --- Services ---
+import type { Chat } from '@/services/chat';
 
 // =================================================================================================
 // Type Definitions

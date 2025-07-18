@@ -2,22 +2,27 @@
  * @file AssetsCategory.tsx
  * @description Asset category and tag filter panel for asset management UI.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, useState, useEffect, useCallback, useMemo } from 'react';
+// --- Core Libraries ---
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
-import { FolderIcon, PhotoIcon, SparklesIcon, StarIcon, MagnifyingGlassIcon, ViewColumnsIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-// 3. Internal Hooks and Types
+// --- Third-party Libraries ---
+import { FolderIcon, PhotoIcon, SparklesIcon, StarIcon, MagnifyingGlassIcon, ViewColumnsIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
+import { motion, AnimatePresence } from 'framer-motion';
+
+// --- Internal Libraries ---
+// --- Hooks ---
 import { useAssets } from '@/hooks/assets';
 
 // =================================================================================================
@@ -86,11 +91,11 @@ const AssetsCategory: FC = () => {
 
   useEffect(() => {
     filterAssets();
-  }, [selectedCategory, selectedTags]);
+  }, [selectedCategory, selectedTags, filterAssets]);
 
   const handleCategoryClick = useCallback((categoryId: string) => {
     setSelectedCategory(categoryId);
-    let newPath = '/assets';
+    const newPath = '/assets';
     const searchParams = new URLSearchParams(location.search);
     if (CATEGORY_MAP[categoryId]) {
       searchParams.set(PARAM_TYPE, CATEGORY_MAP[categoryId]);

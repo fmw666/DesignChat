@@ -2,15 +2,28 @@
  * @file TestLayout.tsx
  * @description AI 服务测试主布局，支持多服务测试切换与展示。
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
-// --- Imports ---
-import React, { FC, useState, useCallback, useMemo } from 'react';
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
+import { useState, useCallback, useMemo } from 'react';
+import type { FC } from 'react';
+
+// --- Third-party Libraries ---
 import { BeakerIcon, SparklesIcon, CommandLineIcon } from '@heroicons/react/24/outline';
+
+// --- Relative Imports ---
 import DoubaoTest from './DoubaoTest';
 import Gpt4oTest from './Gpt4oTest';
 
-// --- Type Definitions ---
+// =================================================================================================
+// Type Definitions
+// =================================================================================================
+
 interface TestConfig {
   id: string;
   name: string;
@@ -19,7 +32,10 @@ interface TestConfig {
   description: string;
 }
 
-// --- Constants ---
+// =================================================================================================
+// Constants
+// =================================================================================================
+
 const TESTS: TestConfig[] = [
   {
     id: 'doubao',
@@ -38,7 +54,10 @@ const TESTS: TestConfig[] = [
   // 可扩展更多测试项
 ];
 
-// --- Component Definition ---
+// =================================================================================================
+// Component
+// =================================================================================================
+
 const TestLayout: FC = () => {
   // --- State and Refs ---
   const [selectedTestId, setSelectedTestId] = useState<string>(TESTS[0].id);
@@ -104,5 +123,8 @@ const TestLayout: FC = () => {
   );
 };
 
-// --- Default Export ---
+// =================================================================================================
+// Default Export
+// =================================================================================================
+
 export default TestLayout;

@@ -2,16 +2,25 @@
  * @file TextModal.tsx
  * @description 现代化的文本描述 Modal，支持 markdown 渲染、滚动、响应式、深色模式。
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
+// --- Core Libraries ---
 import { FC } from 'react';
-import { Modal } from '@/components/shared/common/Modal';
+
+// --- Core-related Libraries ---
 import ReactMarkdown from 'react-markdown';
+
+// --- Third-party Libraries ---
 import remarkGfm from 'remark-gfm';
+
+// --- Internal Libraries ---
+// --- Components ---
+import { Modal } from '@/components/shared/common/Modal';
 
 // =================================================================================================
 // Type Definitions

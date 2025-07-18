@@ -2,16 +2,18 @@
  * @file assetsStore.ts
  * @description Assets store for managing asset records and filtering.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Third-party Libraries
+// --- Third-party Libraries ---
 import { create } from 'zustand';
 
-// 2. Internal Services
+// --- Internal Libraries ---
+// --- Services ---
 import { assetsService, type Asset } from '@/services/assets';
 
 // =================================================================================================
@@ -29,6 +31,7 @@ export interface DisplayAsset {
 }
 
 export interface AssetsState {
+  // --- State ---
   assets: Asset[];
   filteredAssets: Asset[];
   filteredFlatAssets: DisplayAsset[];
@@ -38,6 +41,8 @@ export interface AssetsState {
   isDetailMode: boolean;
   isLoading: boolean;
   isInitialized: boolean;
+
+  // --- State Setters ---
   setAssets: (assets: Asset[] | ((prev: Asset[]) => Asset[])) => void;
   setFilteredAssets: (assets: Asset[]) => void;
   setFilteredFlatAssets: (assets: DisplayAsset[]) => void;
@@ -47,6 +52,8 @@ export interface AssetsState {
   setIsDetailMode: (isDetailMode: boolean) => void;
   setIsLoading: (isLoading: boolean) => void;
   setIsInitialized: (isInitialized: boolean) => void;
+
+  // --- Operations ---
   initialize: () => Promise<void>;
   refreshAssets: () => Promise<void>;
   filterAssets: () => void;
@@ -64,12 +71,12 @@ export interface AssetsState {
 const DEFAULT_ASSETS: Asset[] = [];
 const DEFAULT_FILTERED_ASSETS: Asset[] = [];
 const DEFAULT_FILTERED_FLAT_ASSETS: DisplayAsset[] = [];
-const DEFAULT_SELECTED_CATEGORY = 'all';
-const DEFAULT_SELECTED_TAGS: string[] = [];
 const DEFAULT_IS_FLAT_MODE = false;
 const DEFAULT_IS_DETAIL_MODE = false;
 const DEFAULT_IS_INITIALIZED = false;
 const DEFAULT_IS_LOADING = false;
+const DEFAULT_SELECTED_CATEGORY = 'all';
+const DEFAULT_SELECTED_TAGS: string[] = [];
 const DEFAULT_TITLE_LENGTH = 20;
 
 // =================================================================================================
@@ -87,10 +94,10 @@ export const useAssetsStore = create<AssetsState>((set, get) => ({
   filteredFlatAssets: DEFAULT_FILTERED_FLAT_ASSETS,
   selectedCategory: DEFAULT_SELECTED_CATEGORY,
   selectedTags: DEFAULT_SELECTED_TAGS,
-  isFlatMode: DEFAULT_IS_FLAT_MODE,
   isDetailMode: DEFAULT_IS_DETAIL_MODE,
-  isLoading: DEFAULT_IS_LOADING,
+  isFlatMode: DEFAULT_IS_FLAT_MODE,
   isInitialized: DEFAULT_IS_INITIALIZED,
+  isLoading: DEFAULT_IS_LOADING,
 
   // --- State Setters ---
   setAssets: (assets) => {
@@ -104,11 +111,12 @@ export const useAssetsStore = create<AssetsState>((set, get) => ({
     const newTags = typeof selectedTags === 'function' ? selectedTags(get().selectedTags) : selectedTags;
     set({ selectedTags: newTags });
   },
-  setIsFlatMode: (isFlatMode) => set({ isFlatMode }),
   setIsDetailMode: (isDetailMode) => set({ isDetailMode }),
-  setIsLoading: (isLoading) => set({ isLoading }),
+  setIsFlatMode: (isFlatMode) => set({ isFlatMode }),
   setIsInitialized: (isInitialized) => set({ isInitialized }),
+  setIsLoading: (isLoading) => set({ isLoading }),
 
+  // --- Operations ---
   /**
    * Update a specific asset in the store
    * @param chatId - Chat ID of the asset to update
@@ -193,7 +201,7 @@ export const useAssetsStore = create<AssetsState>((set, get) => ({
       // Apply initial filtering
       get().filterAssets();
     } catch (error) {
-      console.error('Error initializing assets:', error);
+      console.error('[AssetsStore] Error initializing assets:', error);
       set(state => ({
         ...state,
         assets: [],
@@ -225,7 +233,7 @@ export const useAssetsStore = create<AssetsState>((set, get) => ({
       // Apply current filtering
       get().filterAssets();
     } catch (error) {
-      console.error('Error refreshing assets:', error);
+      console.error('[AssetsStore] Error refreshing assets:', error);
       set(state => ({
         ...state,
         isLoading: false

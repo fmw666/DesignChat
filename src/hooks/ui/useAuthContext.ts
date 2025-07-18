@@ -1,8 +1,8 @@
 /**
- * @file AssetsLayout.tsx
- * @description AssetsLayout component, provides the layout wrapper for assets pages.
+ * @file useAuthContext.ts
+ * @description Auth context hook
  * @author fmw666@github
- * @date 2025-07-18
+ * @date 2025-07-17
  */
 
 // =================================================================================================
@@ -10,35 +10,34 @@
 // =================================================================================================
 
 // --- Core Libraries ---
-import { FC, ReactNode } from 'react';
+import { createContext, useContext } from 'react';
 
 // --- Internal Libraries ---
-// --- Components ---
-import BaseLayout from '@/components/shared/layout/BaseLayout';
+// --- Types ---
+import type { User } from '@/types/auth';
 
 // =================================================================================================
 // Type Definitions
 // =================================================================================================
 
-interface AssetsLayoutProps {
-  children: ReactNode;
+interface AuthContextType {
+  user: User | null;
 }
 
 // =================================================================================================
-// Component
+// Context
 // =================================================================================================
 
-const AssetsLayout: FC<AssetsLayoutProps> = ({ children }) => {
-  // --- Render Logic ---
-  return (
-    <BaseLayout type="assets">
-      {children}
-    </BaseLayout>
-  );
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// =================================================================================================
+// Hooks
+// =================================================================================================
+
+export const useAuthContext = (): AuthContextType => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuthContext must be used within a AuthProvider');
+  }
+  return context;
 };
-
-// =================================================================================================
-// Default Export
-// =================================================================================================
-
-export default AssetsLayout; 

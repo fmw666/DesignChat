@@ -2,24 +2,28 @@
  * @file ChatTitle.tsx
  * @description ChatTitle component, provides an editable title interface for chat conversations.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
+// --- Core Libraries ---
 import { useEffect, useRef, useState, useCallback } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
+
+// --- Third-party Libraries ---
 import { CheckIcon, PencilIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
-// 3. Internal Hooks
+// --- Internal Libraries ---
+// --- Hooks ---
 import { useAuth } from '@/hooks/auth';
 import { useChat } from '@/hooks/chat';
-
-// 4. Internal Services
+// --- Services ---
 import { chatService } from '@/services/chat';
 
 // =================================================================================================
@@ -33,7 +37,7 @@ const INPUT_MAX_LENGTH = 13;
 // Component
 // =================================================================================================
 
-export const ChatTitle = () => {
+export const ChatTitle: FC = () => {
   // --- State and Refs ---
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [editedTitle, setEditedTitle] = useState('');
@@ -125,7 +129,7 @@ export const ChatTitle = () => {
       setIsEditingTitle(false);
       setEditedTitle('');
     }
-  }, [currentChat?.id]);
+  }, [currentChat?.id, isEditingTitle]);
 
   // --- Render Logic ---
   if (!user || !currentChat?.title) {

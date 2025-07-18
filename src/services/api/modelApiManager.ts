@@ -2,16 +2,15 @@
  * @file modelApiManager.ts
  * @description Service manager for handling multiple AI service requests with rate limiting and concurrency control
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-// No core library imports needed
-
-// 2. Internal Services
+// --- Internal Libraries ---
+// --- Services ---
 import { AuthMiddleware } from '@/services/auth/authMiddleware';
 import { modelManager, type ModelGroupType } from '@/services/model';
 import type { StandardResponse, DoubaoRequest, GPT4oRequest } from '@/services/model';

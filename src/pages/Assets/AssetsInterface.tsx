@@ -2,28 +2,32 @@
  * @file AssetsInterface.tsx
  * @description Asset management interface with grid layouts and preview modals.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, useState, useCallback, useMemo } from 'react';
+// --- Core Libraries ---
+import { useState, useCallback, useMemo } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
-
-// 3. Internal Components
-import { ImagePreview } from '@/components/shared/common/ImagePreview';
-import EmptyState from '@/components/shared/common/EmptyState';
-import AssetsLoading from './AssetsLoading';
-import FlatAssetsGrid from '@/components/features/assets/FlatAssetsGrid';
+// --- Internal Libraries ---
+// --- Components ---
 import CardAssetsGrid from '@/components/features/assets/CardAssetsGrid';
-
-// 4. Internal Hooks and Types
+import FlatAssetsGrid from '@/components/features/assets/FlatAssetsGrid';
+import EmptyState from '@/components/shared/common/EmptyState';
+import { ImagePreview } from '@/components/shared/common/ImagePreview';
+// --- Hooks ---
 import { useAssets } from '@/hooks/assets';
+// --- Services ---
 import type { Asset } from '@/services/assets';
-import { DisplayAsset } from '@/store/assetsStore';
+// --- Stores ---
+import type { DisplayAsset } from '@/store/assetsStore';
+
+// --- Relative Imports ---
+import AssetsLoading from './AssetsLoading';
 
 // =================================================================================================
 // Component

@@ -2,11 +2,22 @@
  * @file UserProfileModal.tsx
  * @description 用户信息弹窗，支持用户名编辑、邮箱、注册与登录时间展示。
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
-// --- Imports ---
-import React, { FC, useEffect, useState, useCallback, useMemo } from 'react';
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
+import { useEffect, useState, useCallback, useMemo } from 'react';
+import type { FC } from 'react';
+
+// --- Core-related Libraries ---
+import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+
+// --- Third-party Libraries ---
 import {
   EnvelopeIcon,
   CalendarIcon,
@@ -17,24 +28,38 @@ import {
 } from '@heroicons/react/24/outline';
 import { format } from 'date-fns';
 import { zhCN, enUS } from 'date-fns/locale';
-import { useAuthStore } from '@/store/authStore';
-import { toast } from 'react-hot-toast';
-import { getAvatarText, getAvatarClasses, getAvatarSizeClasses } from '@/utils/avatar';
-import { Modal } from '@/components/shared/common/Modal';
-import { useAuth } from '@/hooks/auth';
 
-// --- Type Definitions ---
+// --- Internal Libraries ---
+// --- Components ---
+import { Modal } from '@/components/shared/common/Modal';
+// --- Hooks ---
+import { useAuth } from '@/hooks/auth';
+// --- Store ---
+import { useAuthStore } from '@/store/authStore';
+// --- Utils ---
+import { getAvatarText, getAvatarClasses, getAvatarSizeClasses } from '@/utils/avatar';
+
+// =================================================================================================
+// Type Definitions
+// =================================================================================================
+
 interface UserProfileModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-// --- Constants ---
+// =================================================================================================
+// Constants
+// =================================================================================================
+
 const DISPLAY_NAME_MAX_LENGTH = 10;
 
-// --- Component Definition ---
+// =================================================================================================
+// Component
+// =================================================================================================
+
 export const UserProfileModal: FC<UserProfileModalProps> = ({ isOpen, onClose }) => {
-  // --- State and Refs ---
+  // --- Hooks ---
   const { t, i18n } = useTranslation();
   const [isEditingName, setIsEditingName] = useState<boolean>(false);
   const [displayName, setDisplayName] = useState<string>('');

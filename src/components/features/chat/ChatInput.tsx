@@ -2,18 +2,33 @@
  * @file ChatInput.tsx
  * @description Chat input component with textarea, send button, and input hints
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
-import { FC, FormEvent } from 'react';
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
+import { FormEvent } from 'react';
+import type { FC } from 'react';
+
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
+
+// --- Third-party Libraries ---
 import { PaperAirplaneIcon, SparklesIcon } from '@heroicons/react/24/solid';
+
+// --- Internal Libraries ---
+// --- Types ---
+import type { SelectedModel, DesignImage } from '@/types/chat';
+
+// --- Relative Imports ---
 import { ModelDrawer } from './ModelDrawer';
 
 // =================================================================================================
-// Types
+// Type Definitions
 // =================================================================================================
-
-import type { SelectedModel, DesignImage } from '@/types/chat';
 
 interface ChatInputProps {
   input: string;

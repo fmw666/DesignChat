@@ -2,6 +2,7 @@
  * @file index.ts
  * @description API service exports
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
@@ -9,4 +10,4 @@
 // =================================================================================================
 
 export { modelApiManager } from './modelApiManager';
-export { supabase, type AuthError, type User } from './supabase';
+export { supabase } from './supabase';

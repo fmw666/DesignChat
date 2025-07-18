@@ -2,33 +2,36 @@
  * @file ChatHistory.tsx
  * @description Component that displays chat history with grouped conversations by time periods
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, useState, useMemo, useCallback } from 'react';
+// --- Core Libraries ---
+import { useState, useMemo, useCallback } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
-import { useNavigate } from 'react-router-dom';
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+
+// --- Third-party Libraries ---
 import { TrashIcon, EllipsisHorizontalIcon, PencilIcon, ArchiveBoxIcon } from '@heroicons/react/24/outline';
-import { motion, AnimatePresence } from 'framer-motion';
 import { format, isToday, isYesterday, isThisYear } from 'date-fns';
 import { zhCN, enUS } from 'date-fns/locale';
+import { motion, AnimatePresence } from 'framer-motion';
 
-// 3. Internal Hooks
-import { useChat } from '@/hooks/chat';
-
-// 4. Internal Services
-import { Chat } from '@/services/chat';
-
-// 5. Internal Components
+// --- Internal Libraries ---
+// --- Components ---
 import { ConfirmDialog } from '@/components/shared/common/ConfirmDialog';
-import { useContextMenu } from '@/providers/ContextMenuProvider';
 import RenameChatModal from '@/components/shared/modals/RenameChatModal';
+// --- Hooks ---
+import { useChat } from '@/hooks/chat';
+import { useContextMenu } from '@/hooks/ui';
+// --- Services ---
+import { Chat } from '@/services/chat';
 
 // =================================================================================================
 // Type Definitions
@@ -97,7 +100,7 @@ const isWithinLast30Days = (date: Date): boolean => isWithinLastDays(date, DAYS_
 // Component
 // =================================================================================================
 
-export const ChatHistory: FC<ChatHistoryProps> = ({ }) => {
+export const ChatHistory: FC<ChatHistoryProps> = () => {
   // --- State ---
   const [chatToDelete, setChatToDelete] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
@@ -235,7 +238,7 @@ export const ChatHistory: FC<ChatHistoryProps> = ({ }) => {
     } finally {
       setIsArchiving(null);
     }
-  }, [archiveChat, currentChat, chats, navigate]);
+  }, [archiveChat, currentChat, switchChatById]);
 
   const handleDelete = useCallback((chatId: string) => {
     setChatToDelete(chatId);

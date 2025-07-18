@@ -2,25 +2,44 @@
  * @file BaseSidebar.tsx
  * @description 响应式基础侧边栏布局，支持移动端与桌面端自适应，集成用户菜单。
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
-// --- Imports ---
-import { FC, useEffect, useState, useCallback } from 'react';
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
+import { useEffect, useState, useCallback } from 'react';
+import type { FC } from 'react';
+
+// --- Third-party Libraries ---
+import { Transition } from '@headlessui/react';
+import { Bars3Icon } from '@heroicons/react/24/outline';
+
+// --- Relative Imports ---
 import Sidebar from './Sidebar';
 import UserMenu from './UserMenu';
-import { Bars3Icon } from '@heroicons/react/24/outline';
-import { Transition } from '@headlessui/react';
 
-// --- Type Definitions ---
+// =================================================================================================
+// Type Definitions
+// =================================================================================================
+
 interface BaseSidebarProps {
   type: 'chat' | 'assets';
 }
 
-// --- Constants ---
+// =================================================================================================
+// Constants
+// =================================================================================================
+
 const MOBILE_BREAKPOINT = 768;
 const SIDEBAR_WIDTH = 256; // 64 * 4 = 256px (w-64)
 
-// --- Component Definition ---
+// =================================================================================================
+// Component
+// =================================================================================================
+
 const BaseSidebar: FC<BaseSidebarProps> = ({ type }) => {
   // --- State and Refs ---
   const [isMobileWidth, setIsMobileWidth] = useState<boolean>(false);
@@ -107,5 +126,8 @@ const BaseSidebar: FC<BaseSidebarProps> = ({ type }) => {
   );
 };
 
-// --- Default Export ---
+// =================================================================================================
+// Default Export
+// =================================================================================================
+
 export default BaseSidebar; 

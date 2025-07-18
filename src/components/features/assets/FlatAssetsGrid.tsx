@@ -2,22 +2,24 @@
  * @file FlatAssetsGrid.tsx
  * @description Flat assets grid component for displaying images in masonry layout.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, useCallback, useRef } from 'react';
+// --- Core Libraries ---
+import { useCallback, useRef } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
+// --- Third-party Libraries ---
 import { motion, AnimatePresence } from 'framer-motion';
 
-// 3. Internal Components
+// --- Internal Libraries ---
+// --- Components ---
 import ImageLoader from '@/components/shared/common/ImageLoader';
-
-// 4. Internal Types
+// --- Store ---
 import { DisplayAsset } from '@/store/assetsStore';
 
 // =================================================================================================

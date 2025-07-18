@@ -2,15 +2,33 @@
  * @file ConfirmDialog.tsx
  * @description ConfirmDialog component for user confirmation.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
-import { FC, useCallback, useMemo } from 'react';
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
+import { useCallback, useMemo } from 'react';
+import type { FC } from 'react';
+
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
+
+// --- Third-party Libraries ---
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+
+// --- Internal Libraries ---
+// --- Components ---
 import { Modal } from '@/components/shared/common/Modal';
+
+// --- Relative Imports ---
 import type { ConfirmDialogProps, ConfirmDialogType } from './types';
 
-// --- Constants ---
+// =================================================================================================
+// Constants
+// =================================================================================================
 
 const DEFAULT_CONFIRM_TEXT = '确认';
 const DEFAULT_CANCEL_TEXT = '取消';
@@ -30,7 +48,9 @@ const TYPE_STYLES: Record<ConfirmDialogType, { icon: string; button: string }> =
   },
 };
 
-// --- Component Definition ---
+// =================================================================================================
+// Component
+// =================================================================================================
 
 export const ConfirmDialog: FC<ConfirmDialogProps> = ({
   isOpen,
@@ -44,11 +64,6 @@ export const ConfirmDialog: FC<ConfirmDialogProps> = ({
   maxWidth = 'sm',
   isLoading = false
 }) => {
-  // Early return if modal is not open to prevent unnecessary rendering
-  if (!isOpen) return null;
-  // --- State and Refs ---
-  // No states or refs
-
   // --- Hooks ---
   const { t } = useTranslation();
 
@@ -58,12 +73,14 @@ export const ConfirmDialog: FC<ConfirmDialogProps> = ({
     onClose();
   }, [onConfirm, onClose]);
 
-  // --- Side Effects ---
-  // No side effects
-
-  // --- Render Logic ---
+  // --- Logic and Event Handlers ---
   const styles = useMemo(() => TYPE_STYLES[type], [type]);
 
+  // --- Render Logic ---
+  // Early return if modal is not open to prevent unnecessary rendering
+  if (!isOpen) return null;
+
+  // --- Render ---
   return (
     <Modal
       isOpen={isOpen}

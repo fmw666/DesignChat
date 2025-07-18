@@ -1,3 +1,10 @@
+/**
+ * @file modelsLoader.ts
+ * @description 模型配置加载器，用于从 JSON 配置文件加载模型配置。
+ * @author fmw666@github
+ * @date 2025-07-18
+ */
+
 import modelsConfig from './models.json';
 import { ModelsConfig, ImageModel, ImageModelWithDate, GroupConfig, ModelGroupType } from './models.types';
 

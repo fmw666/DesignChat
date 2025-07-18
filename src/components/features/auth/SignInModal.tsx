@@ -2,25 +2,28 @@
  * @file SignInModal.tsx
  * @description Modal for user sign-in with invite code, email verification, and animated UI.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
+// --- Core Libraries ---
 import { useState, useEffect, useCallback, FormEvent } from 'react';
 
-// 2. Third-party Libraries
-import { EnvelopeIcon, KeyIcon, TicketIcon } from '@heroicons/react/24/outline';
-import { motion, AnimatePresence } from 'framer-motion';
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
 
-// 3. Internal Hooks
-import { useAuth } from '@/hooks/auth';
+// --- Third-party Libraries ---
+import { EnvelopeIcon, KeyIcon, TicketIcon } from '@heroicons/react/24/outline';
+import { motion, AnimatePresence } from 'framer-motion';
 
-// 4. Internal Components
+// --- Internal Libraries ---
+// --- Components ---
 import { Modal } from '@/components/shared/common/Modal';
+// --- Hooks ---
+import { useAuth } from '@/hooks/auth';
 
 // =================================================================================================
 // Type Definitions

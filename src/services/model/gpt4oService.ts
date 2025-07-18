@@ -1,3 +1,10 @@
+/**
+ * @file gpt4oService.ts
+ * @description GPT4oService for generating images with GPT-4o
+ * @author fmw666@github
+ * @date 2025-07-18
+ */
+
 import { StandardResponse } from './baseService';
 
 export interface GPT4oRequest {

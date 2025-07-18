@@ -2,31 +2,36 @@
  * @file ModelConfigModal.tsx
  * @description Modal component for configuring AI model settings with expandable details
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, useState, useEffect, useCallback } from 'react';
+// --- Core Libraries ---
+import { useState, useEffect, useCallback } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
-import { CheckCircleIcon, XCircleIcon, ChevronRightIcon, EyeIcon, EyeSlashIcon, InformationCircleIcon, Cog6ToothIcon, KeyIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
-import { useTranslation } from 'react-i18next';
-import { AnimatePresence, motion } from 'framer-motion';
+// --- Core-related Libraries ---
 import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
-// 3. Internal Components
+// --- Third-party Libraries ---
+import { CheckCircleIcon, XCircleIcon, ChevronRightIcon, EyeIcon, EyeSlashIcon, InformationCircleIcon, Cog6ToothIcon, KeyIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
+import { AnimatePresence, motion } from 'framer-motion';
+
+// --- Internal Libraries ---
+// --- Components ---
 import { Modal } from '@/components/shared/common/Modal';
-import ModelDetailModal from './ModelDetailModal';
-
-// 4. Internal Services
-import { TestStatus } from '@/services/model';
-
-// 5. Internal Stores
+// --- Hooks ---
 import { useAuth } from '@/hooks/auth';
 import { useModel } from '@/hooks/model';
+// --- Services ---
+import { TestStatus } from '@/services/model';
+
+// --- Relative Imports ---
+import ModelDetailModal from './ModelDetailModal';
 
 // =================================================================================================
 // Type Definitions
@@ -165,7 +170,7 @@ export const ModelConfigModal: FC<ModelConfigModalProps> = ({ isOpen, onClose })
 
   const handleModelConfigChange = useCallback((modelId: string, field: 'apiKey' | 'apiSecret' | 'arkApiKey' | 'systemPrompt', value: string) => {
     setModels(models => models.map(model => model.id === modelId ? { ...model, [field]: value, testStatus: TestStatus.NOT_TESTED } : model));
-  }, [models]);
+  }, []);
 
   const handleTestConnection = useCallback(async (modelId: string) => {
     const model = models.find(m => m.id === modelId);

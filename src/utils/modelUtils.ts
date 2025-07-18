@@ -2,13 +2,14 @@
  * @file modelUtils.ts
  * @description Model utility functions for image model management and selection.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Internal Types
+// --- Internal Types ---
 import type { ImageModel } from '@/services/model';
 
 // =================================================================================================

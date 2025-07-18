@@ -1,6 +1,24 @@
-import { FC } from 'react';
-import AssetsLayout from './AssetsLayout';
+/**
+ * @file index.ts
+ * @description Assets page index file
+ * @author fmw666@github
+ * @date 2025-07-18
+ */
+
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
+import type { FC } from 'react';
+
+// --- Relative Imports ---
 import AssetsInterface from './AssetsInterface';
+import AssetsLayout from './AssetsLayout';
+
+// =================================================================================================
+// Component
+// =================================================================================================
 
 const Assets: FC = () => {
 
@@ -10,5 +28,9 @@ const Assets: FC = () => {
     </AssetsLayout>
   );
 };
+
+// =================================================================================================
+// Default Export
+// =================================================================================================
 
 export default Assets;

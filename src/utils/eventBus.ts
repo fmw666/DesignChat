@@ -2,13 +2,8 @@
  * @file eventBus.ts
  * @description EventBus utility for application-wide event management and communication.
  * @author fmw666@github
+ * @date 2025-07-18
  */
-
-// =================================================================================================
-// Imports
-// =================================================================================================
-
-// No external imports needed
 
 // =================================================================================================
 // Type Definitions

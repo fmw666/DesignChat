@@ -2,15 +2,22 @@
  * @file ContextMenu.tsx
  * @description Global context menu component that can be positioned anywhere on the screen
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-import { FC, useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+// --- Core Libraries ---
+import { useEffect, useRef, useState } from 'react';
+import type { FC } from 'react';
+
+// --- Core-related Libraries ---
 import { createPortal } from 'react-dom';
+
+// --- Third-party Libraries ---
+import { motion, AnimatePresence } from 'framer-motion';
 
 // =================================================================================================
 // Type Definitions

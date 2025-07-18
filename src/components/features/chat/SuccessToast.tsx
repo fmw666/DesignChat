@@ -2,13 +2,21 @@
  * @file SuccessToast.tsx
  * @description Success toast notification component
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
-import { FC } from 'react';
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
+import type { FC } from 'react';
+
+// --- Third-party Libraries ---
 import { motion, AnimatePresence } from 'framer-motion';
 
 // =================================================================================================
-// Types
+// Type Definitions
 // =================================================================================================
 
 interface SuccessToastProps {

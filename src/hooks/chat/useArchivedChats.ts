@@ -2,15 +2,24 @@
  * @file useArchivedChats.ts
  * @description Hook for managing archived chats state and operations
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
+// =================================================================================================
+// Imports
+// =================================================================================================
+
+// --- Core Libraries ---
 import { useCallback } from 'react';
+
+// --- Internal Libraries ---
+// --- Hooks ---
 import { useAuth } from '@/hooks/auth';
+// --- Stores ---
 import { useChatStore } from '@/store/chatStore';
 
-
 // =================================================================================================
-// Hook
+// Hook Definition
 // =================================================================================================
 
 export const useArchivedChats = () => {

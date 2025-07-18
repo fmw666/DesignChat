@@ -2,38 +2,41 @@
  * @file ChatMessage.tsx
  * @description Renders a single chat message, including user input and AI response with images and actions.
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, useState, useCallback, useEffect } from 'react';
+// --- Core Libraries ---
+import { useState, useCallback, useEffect } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
-import { SparklesIcon, ExclamationCircleIcon, ClockIcon } from '@heroicons/react/24/solid';
 import ReactMarkdown from 'react-markdown';
+
+// --- Third-party Libraries ---
+import { SparklesIcon, ExclamationCircleIcon, ClockIcon } from '@heroicons/react/24/solid';
 import remarkGfm from 'remark-gfm';
 
-// 3. Internal Utilities
-import { getAvatarClasses, getAvatarSizeClasses } from '@/utils/avatar';
-
-// 4. Internal Components
+// --- Internal Libraries ---
+// --- Components ---
 import TextModal from '@/components/features/chat/TextModal';
 import { ImagePreview } from '@/components/shared/common/ImagePreview';
-
-// 5. Internal Hooks/Stores
-import { useAuthStore } from '@/store/authStore';
+// --- Services ---
 import type { ImageResult, Message, Chat } from '@/services/chat';
+// --- Store ---
+import { useAuthStore } from '@/store/authStore';
+// --- Types ---
 import type { SelectedImage } from '@/types/chat';
+// --- Utils ---
+import { getAvatarClasses, getAvatarSizeClasses } from '@/utils/avatar';
 
 // =================================================================================================
 // Type Definitions
 // =================================================================================================
-
-export { SelectedImage };
 
 interface ChatMessageProps {
   message: Message;

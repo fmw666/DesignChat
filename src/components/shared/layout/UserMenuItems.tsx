@@ -2,39 +2,24 @@
  * @file UserMenuItems.tsx
  * @description 用户菜单组件，提供菜单项配置和组件用于用户菜单。
  * @author fmw666@github
+ * @date 2025-07-18
  */
 
 // =================================================================================================
 // Imports
 // =================================================================================================
 
-// 1. Core Libraries
-import { FC, forwardRef, useCallback } from 'react';
+// --- Core Libraries ---
+import { forwardRef } from 'react';
+import type { FC } from 'react';
 
-// 2. Third-party Libraries
-import { Link, useLocation } from 'react-router-dom';
+// --- Core-related Libraries ---
 import { useTranslation } from 'react-i18next';
-import { 
-  UserIcon, 
-  Cog6ToothIcon, 
-  PhotoIcon, 
-  ArrowRightOnRectangleIcon,
-} from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
 
-// =================================================================================================
-// Type Definitions
-// =================================================================================================
-
-export interface MenuItem {
-  id: string;
-  icon: React.ComponentType<{ className?: string }>;
-  label: string;
-  onClick?: () => void;
-  to?: string;
-  isLink?: boolean;
-  isDanger?: boolean;
-  showCondition?: () => boolean;
-}
+// --- Internal Libraries ---
+// --- Hooks ---
+import type { MenuItem } from '@/hooks/ui/useMenuItems';
 
 // =================================================================================================
 // Constants
@@ -53,7 +38,7 @@ const MENU_ITEM_ICON_DANGER_CLASSES = "text-red-500 dark:text-red-400";
 // =================================================================================================
 
 // Menu item style classes
-export const menuItemClasses = {
+const menuItemClasses = {
   base: MENU_ITEM_BASE_CLASSES,
   default: MENU_ITEM_DEFAULT_CLASSES,
   active: MENU_ITEM_ACTIVE_CLASSES,
@@ -101,61 +86,6 @@ export const MenuItemComponent = forwardRef<HTMLElement, {
 });
 
 MenuItemComponent.displayName = 'MenuItemComponent';
-
-// Menu item configuration hook
-export const useMenuItems = (
-  onProfileClick: () => void,
-  onSettingsClick: () => void,
-  onSignOut: () => void,
-  closeMenu?: () => void
-): MenuItem[] => {
-  // --- Hooks ---
-  const location = useLocation();
-  
-  // --- Logic and Event Handlers ---
-  const isAssetsPage = location.pathname.startsWith('/assets');
-
-  const handleProfileClick = useCallback(() => {
-    onProfileClick();
-    closeMenu?.();
-  }, [onProfileClick, closeMenu]);
-
-  const handleSettingsClick = useCallback(() => {
-    onSettingsClick();
-    closeMenu?.();
-  }, [onSettingsClick, closeMenu]);
-
-  // --- Return menu items configuration ---
-  return [
-    {
-      id: 'profile',
-      icon: UserIcon,
-      label: 'profile.title',
-      onClick: handleProfileClick,
-    },
-    {
-      id: 'settings',
-      icon: Cog6ToothIcon,
-      label: 'settings.title',
-      onClick: handleSettingsClick,
-    },
-    {
-      id: 'assets',
-      icon: PhotoIcon,
-      label: 'assets.title',
-      to: '/assets',
-      isLink: true,
-      showCondition: () => !isAssetsPage,
-    },
-    {
-      id: 'logout',
-      icon: ArrowRightOnRectangleIcon,
-      label: 'auth.logout',
-      onClick: onSignOut,
-      isDanger: true,
-    },
-  ];
-};
 
 // Divider component
 export const MenuDivider: FC = () => (
