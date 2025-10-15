@@ -59,153 +59,110 @@ This project adopts a modular and layered architecture for easy scalability and 
 本项目采用模块化、分层设计，便于扩展和维护。每个目录均有明确职责。
 
 ```text
-src/
-├── App.tsx                                    # App root component / 应用根组件
-├── main.tsx                                   # App entry file / 应用入口文件
-├── setupTests.ts                              # Test setup / 测试配置
-├── config/                                    # Model list / 模型列表
-│   ├── models.types.ts                        # Model type definitions / 模型类型定义
-│   └── modelsLoader.ts                        # Model loader logic / 模型加载逻辑
-├── components/                                # UI components / 组件层
-│   ├── features/                              # Feature modules / 业务功能组件
-│   │   ├── auth/                              # Auth UI / 认证相关组件
-│   │   │   ├── SignInModal.tsx                # Sign-in modal / 登录模态框
-│   │   │   └── ProtectedRoute.tsx             # Route protection / 路由保护
-│   │   ├── chat/                              # Chat UI / 聊天相关组件
-│   │   │   ├── ChatMessage.tsx                # Chat message / 聊天消息
-│   │   │   ├── ChatHistory.tsx                # Chat history / 聊天历史
-│   │   │   ├── ChatTitle.tsx                  # Chat title / 聊天标题
-│   │   │   ├── ModelDrawer.tsx                # Model selector / 模型选择抽屉
-│   │   │   ├── ChatInput.tsx                  # Chat input / 聊天输入
-│   │   │   ├── SuccessToast.tsx               # Success toast / 成功提示
-│   │   │   ├── ArchivedChatInterface.tsx      # Archived chat / 聊天归档
-│   │   │   ├── NewChatGuide.tsx               # New chat guide / 新聊天引导
-│   │   │   └── TextModal.tsx                  # Text modal / 文本模态框
-│   │   ├── user/                              # User UI / 用户相关组件
-│   │   │   ├── UserProfileModal.tsx           # User profile / 用户资料
-│   │   │   ├── SettingsModal.tsx              # Settings / 设置
-│   │   │   ├── ModelConfigModal.tsx           # Model config / 模型配置
-│   │   │   ├── ModelDetailModal.tsx           # Model detail / 模型详情
-│   │   │   └── ArchivedChatsModal.tsx         # Archived chats / 聊天归档
-│   │   ├── assets/                            # Asset UI / 素材库相关组件
-│   │   │   ├── CardAssetsGrid.tsx             # Card grid / 卡片网格
-│   │   │   ├── AssetsCategory.tsx             # Asset category / 素材分类
-│   │   │   └── FlatAssetsGrid.tsx             # Flat grid / 扁平网格
-│   ├── shared/                                # Shared UI / 通用组件
-│   │   ├── layout/                            # Layouts / 布局
-│   │   │   ├── BaseLayout.tsx                 # Base layout / 基础布局
-│   │   │   ├── BaseSidebar.tsx                # Base sidebar / 基础侧边栏
-│   │   │   ├── Sidebar.tsx                    # Sidebar / 侧边栏
-│   │   │   ├── UserMenu.tsx                   # User menu / 用户菜单
-│   │   │   ├── UserMenuItems.tsx              # User menu items / 用户菜单项
-│   │   ├── common/                            # Common widgets / 通用小组件
-│   │   │   ├── ConfirmDialog/                 # Confirm dialog / 确认对话框
-│   │   │   │   ├── ConfirmDialogOptimized.tsx
-│   │   │   │   ├── index.tsx
-│   │   │   │   └── types.ts
-│   │   │   ├── ContextMenu.tsx                # Context menu / 右键菜单
-│   │   │   ├── CustomToaster.tsx              # Toast / 全局提示
-│   │   │   ├── EmptyState.tsx                 # Empty state / 空状态
-│   │   │   ├── ImageLoader.tsx                # Image loader / 图片加载
-│   │   │   ├── ImagePreview/                  # Image preview / 图片预览
-│   │   │   │   └── index.tsx
-│   │   │   ├── ImageViewer/                   # Image viewer / 图片查看
-│   │   │   │   └── index.tsx
-│   │   │   ├── Logo/                          # Logo / 标志
-│   │   │   │   └── index.tsx
-│   │   │   ├── Modal/                         # Modal / 模态框
-│   │   │   │   ├── index.tsx
-│   │   │   │   └── modalStack.ts
-│   │   ├── modals/                            # Other modals / 其他模态框
-│   │   │   └── RenameChatModal.tsx
-│   ├── tests/                                 # Test UI / 测试组件
-│   │   ├── chat/                              # Chat test / 聊天测试
-│   │   │   ├── DoubaoTest.tsx
-│   │   │   ├── Gpt4oTest.tsx
-│   │   │   └── TestLayout.tsx
-│   │   ├── storage/                           # Storage test / 存储测试
-│   │   │   └── StorageTestComponent.tsx
-├── pages/                                     # Pages / 页面
-│   ├── Chat/                                  # Chat pages / 聊天页面
-│   │   ├── index.tsx
-│   │   ├── ChatLayout.tsx
-│   │   └── ChatInterface/
-│   │       ├── index.tsx
-│   │       ├── ScrollingOverlay.tsx
-│   │       └── ChatLoading.tsx
-│   ├── Assets/                                # Asset pages / 素材页面
-│   │   ├── AssetsInterface.tsx
-│   │   ├── AssetsLayout.tsx
-│   │   ├── AssetsLoading.tsx
-│   │   └── index.tsx
-│   ├── Tests/                                 # Test pages / 测试页面
-│   │   ├── index.tsx
-│   │   ├── SupabaseTest.tsx
-│   │   ├── ChatTest.tsx
-│   │   └── StorageTest.tsx
-│   └── NotFound.tsx                           # 404 page / 404 页面
-├── services/                                  # Service layer / 服务层
-│   ├── api/                                   # API services / API 服务
-│   │   ├── index.ts
-│   │   ├── modelApiManager.ts
-│   │   └── supabase.ts
-│   ├── auth/                                  # Auth services / 认证服务
-│   │   ├── authService.ts
-│   │   ├── authMiddleware.ts
-│   │   └── index.ts
-│   ├── chat/                                  # Chat services / 聊天服务
-│   │   ├── chatService.ts
-│   │   └── index.ts
-│   ├── model/                                 # Model services / 模型服务
-│   │   ├── baseService.ts
-│   │   ├── doubaoService.ts
-│   │   ├── gpt4oService.ts
-│   │   ├── index.ts
-│   │   ├── modelManager.ts
-│   │   └── modelService.ts
-│   ├── storage/                               # Storage services / 存储服务
-│   │   ├── imageUtils.ts
-│   │   ├── index.ts
-│   │   └── storageService.ts
-│   ├── assets/                                # Asset services / 素材服务
-│   │   ├── assetsServices.ts
-│   │   └── index.ts
-├── hooks/                                     # Custom hooks / 自定义 Hooks
-│   ├── index.ts
-│   ├── chat/                                  # Chat hooks / 聊天相关
-│   ├── model/                                 # Model hooks / 模型相关
-│   ├── ui/                                    # UI hooks / UI 相关
-│   ├── auth/                                  # Auth hooks / 认证相关
-│   └── assets/                                # Asset hooks / 素材相关
-├── store/                                     # State management / 状态管理
-│   ├── modelStore.ts
-│   ├── authStore.ts
-│   ├── chatStore.ts
-│   └── assetsStore.ts
-├── utils/                                     # Utilities / 工具函数
-│   ├── avatar.ts
-│   ├── clipboard.ts
-│   ├── corsProxy.ts
-│   ├── eventBus.ts
-│   └── modelUtils.ts
-├── providers/                                 # Providers / 全局 Provider
-│   ├── AuthProvider.tsx
-│   ├── ContextMenuProvider.tsx
-│   └── ThemeProvider.tsx
-├── styles/                                    # Styles / 样式
-│   ├── index.css
-│   └── theme.ts
-├── i18n/                                      # Internationalization / 国际化
-│   ├── index.ts
-│   └── locales/
-│       ├── en.ts
-│       └── zh.ts
-├── types/                                     # Type definitions / 类型定义
-│   ├── chat.ts
-│   └── env.d.ts
-├── examples/                                  # Example code / 示例代码
-│   └── StreamGenerationExample.tsx
-```
+.
+├── docs/
+│   ├── tasks/
+│   ├── project/
+├── public/
+│   ├── favicon.svg
+│   └── site.webmanifest
+├── scripts/                                       # scripts if necessary
+│   └── ...
+├── src/
+│   ├── app/
+│   │   ├── router/
+│   │   │   └── AppRouter.tsx
+│   │   ├── store/
+│   │   │   └── index.ts
+│   │   ├── providers/
+│   │   │   └── AppProvider.tsx
+│   ├── examples/
+│   │   └── ExampleComponent.tsx
+│   ├── features/                                  # UI components / 组件层
+│   │   ├── auth/
+│   │   │   ├── components/
+│   │   │   │   ├── LoginForm.tsx       # Form component for user authentication
+│   │   │   │   └── LogoutButton.tsx    # Button component for session termination
+│   │   │   ├── hooks/
+│   │   │   │   └── useAuth.ts          # Custom hook for authentication logic
+│   │   │   ├── services/
+│   │   │   │   └── authService.ts      # API calls for login/logout operations
+│   │   │   ├── store/
+│   │   │   │   └── authStore.ts        # x
+│   │   │   ├── types/
+│   │   │   │   └── authTypes.ts        # Type definitions for auth module
+│   │   │   └── index.ts
+│   │   ├── task/
+│   │   │   ├── components/
+│   │   │   │   ├── TaskCard.tsx
+│   │   │   │   └── TaskForm.tsx
+│   │   │   ├── hooks/
+│   │   │   │   └── useTaskManager.ts
+│   │   │   ├── services/
+│   │   │   │   └── taskService.ts
+│   │   │   ├── store/
+│   │   │   │   └── taskStore.ts
+│   │   │   ├── types/
+│   │   │   │   └── taskTypes.ts
+│   │   │   └── index.ts
+│   │   ├── others/
+│   │   │   └── ...
+│   ├── shared/
+│   │   ├── components/
+│   │   │   ├── Button/
+│   │   │   │   ├── Button.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── layout/                     # 统一布局组件
+│   │   │   │   ├── Header.tsx
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── MainLayout.tsx
+│   │   │   │   └── Sidebar.tsx
+│   │   │   └── ...                         # 其他共享组件
+│   │   ├── hooks/
+│   │   │   └── useLocalStorage.ts
+│   │   ├── utils/
+│   │   │   ├── formatters.ts
+│   │   │   └── clipboard.ts                # 剪贴板工具
+│   │   ├── services/
+│   │   │   └── supabase.ts                 # Supabase 初始化
+│   │   ├── i18n/                           # 国际化
+│   │   │   ├── locales/                    # 国际化
+│   │   │   │   ├── en.ts                    # 国际化
+│   │   │   │   ├── zh.ts                    # 国际化
+│   │   │   │   └── ...                     # 其他语言，如果有需要
+│   │   │   └── index.ts                    # Supabase 初始化
+│   │   ├── types/
+│   │   │   └── sharedTypes.ts
+│   ├── styles/
+│   │   ├── global.css
+│   │   └── tailwind.css
+│   ├── tests/                          # 测试文件
+│   │   ├── integration/                # 集成测试
+│   │   │   ├── taskFlow.test.ts
+│   │   │   └── authFlow.test.ts
+│   │   ├── unit/                       # 单元测试
+│   │   │   ├── features/
+│   │   │   │   └── auth/
+│   │   │   │       └── useAuth.test.ts
+│   │   │   ├── shared/
+│   │   │   │   ├── components/
+│   │   │   │   │   └── Button.test.tsx
+│   │   │   │   └── utils/
+│   │   │   │       └── clipboard.test.ts
+├── .env
+├── .env.example
+├── .eslintrc.cjs
+├── .gitignore
+├── index.html
+├── jest.config.js
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── README.md
+├── tailwind.config.js
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 
 ---
 
